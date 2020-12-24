@@ -11,14 +11,14 @@ function App() {
     return (
         <Container>
             <div className="ui two item menu">
-                <NavLink className="item" activeClassName="active" exact to="/">
+                <NavLink className="item" activeClassName="active" exact to="/crm/clients">
                     Clients list
                 </NavLink>
                 <NavLink
                     className="item"
                     activeClassName="active"
                     exact
-                    to="/clients/new"
+                    to="/crm/clients/new"
                 >
                     Add Client
                 </NavLink>
