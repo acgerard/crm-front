@@ -9,6 +9,6 @@ export function getStatus(state) {
     return state.clientReducer.status;
 }
 
-export function getMessage(state) {
+export function getError(state) {
     return state.clientReducer.error;
 }

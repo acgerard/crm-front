@@ -1,13 +1,11 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
+import SnackbarContent from "@material-ui/core/SnackbarContent";
 
-export function FlashMessage({ message }) {
+export function FlashMessage({ error }) {
     return (
-        <Message
-            positive={message.type === 'success'}
-            negative={message.type === 'fail'}
-            header={message.title}
-            content={message.content}
+        <SnackbarContent
+            message={error.message}
         />
     );
 }
+

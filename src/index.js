@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import 'fomantic-ui-css/semantic.min.css';
-import './index.css';
 import {Provider} from "react-redux";
 import store from "./store";
 

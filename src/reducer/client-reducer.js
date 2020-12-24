@@ -14,7 +14,7 @@ export const clientsAdapter = createEntityAdapter({
 
 const initialState = clientsAdapter.getInitialState({
     status: STATUS.INIT,
-    error: ""
+    error: null
 });
 
 const clientsSlice = createSlice({
@@ -31,7 +31,7 @@ const clientsSlice = createSlice({
             },
             [fetchClients.rejected]: (state, action) => {
                 state.status = STATUS.ERROR;
-                state.error = action.payload
+                state.error = action.error;
             }
         }
     }
