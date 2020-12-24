@@ -5,14 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import 'fomantic-ui-css/semantic.min.css';
 import './index.css';
-import {ClientContextProvider} from "./context/client-context";
+import {Provider} from "react-redux";
+import store from "./store";
 
 ReactDOM.render(
-    <ClientContextProvider>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </ClientContextProvider>,
+    <React.StrictMode>
+        <Provider store={store}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>,
     document.getElementById('root')
 );
 

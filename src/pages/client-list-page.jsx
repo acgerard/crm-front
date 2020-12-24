@@ -1,21 +1,24 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {ClientList} from '../components/client-list';
-import {ClientContext} from "../context/client-context";
 import {fetchClients} from "../actions/client-actions";
 import {FlashMessage} from "../components/flash-message";
+import {useDispatch, useSelector} from "react-redux";
+import {getClients, getMessage} from "../selectors/client-selectors";
 
 function ClientListPage() {
-    const [state, dispatch] = useContext(ClientContext);
+    const clients = useSelector(getClients);
+    const message = useSelector(getMessage);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchClients(dispatch);
-    }, []);
+        dispatch(fetchClients);
+    }, [dispatch]);
 
     return (
         <div>
             <h1>List of Clients</h1>
-            {state.message.content && <FlashMessage message={state.message} />}
-            <ClientList clients={state.clients}/>
+            {message.content && <FlashMessage message={message} />}
+            <ClientList clients={clients}/>
         </div>
     );
 }

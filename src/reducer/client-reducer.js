@@ -1,7 +1,4 @@
-import React, { useReducer, createContext } from 'react';
 import {FETCH_CLIENTS_SUCCESS} from "../actions/client-actions";
-
-export const ClientContext = createContext();
 
 const initialState = {
     clients: [],
@@ -9,8 +6,7 @@ const initialState = {
     message: {}, // { type: 'success|fail', title:'Info|Error' content:'lorem ipsum'}
 };
 
-function reducer(state, action) {
-    console.log("ACTION ", action);
+export default function clientReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_CLIENTS_SUCCESS: {
             return {
@@ -25,17 +21,6 @@ function reducer(state, action) {
             };
         }
         default:
-            throw new Error();
+            return state;
     }
 }
-
-export const ClientContextProvider = props => {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const { children } = props;
-
-    return (
-        <ClientContext.Provider value={[state, dispatch]}>
-            {children}
-        </ClientContext.Provider>
-    );
-};
