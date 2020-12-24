@@ -1,26 +1,41 @@
-import {FETCH_CLIENTS_SUCCESS} from "../actions/client-actions";
+import {fetchClients} from "../actions/client-actions";
+import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 
-const initialState = {
-    clients: [],
-    client: {}, // selected or new
-    message: {}, // { type: 'success|fail', title:'Info|Error' content:'lorem ipsum'}
+export const STATUS = {
+    INIT: "INIT",
+    LOADING: "LOADING",
+    OK: "OK",
+    ERROR: "ERROR",
 };
 
-export default function clientReducer(state = initialState, action) {
-    switch (action.type) {
-        case FETCH_CLIENTS_SUCCESS: {
-            return {
-                ...state,
-                clients: action.payload,
-            };
+export const clientsAdapter = createEntityAdapter({
+    selectId: (client) => client._id
+});
+
+const initialState = clientsAdapter.getInitialState({
+    status: STATUS.INIT,
+    error: ""
+});
+
+const clientsSlice = createSlice({
+        name: 'clients',
+        initialState,
+        reducers: {},
+        extraReducers: {
+            [fetchClients.pending]: (state) => {
+                state.status = STATUS.LOADING;
+            },
+            [fetchClients.fulfilled]: (state, action) => {
+                state.status = STATUS.OK;
+                clientsAdapter.setAll(state, action.payload)
+            },
+            [fetchClients.rejected]: (state, action) => {
+                state.status = STATUS.ERROR;
+                state.error = action.payload
+            }
         }
-        case 'FLASH_MESSAGE': {
-            return {
-                ...state,
-                message: action.payload,
-            };
-        }
-        default:
-            return state;
     }
-}
+);
+
+export default clientsSlice.reducer;
+
