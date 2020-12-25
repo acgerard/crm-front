@@ -1,4 +1,4 @@
-import {fetchClients} from "../actions/client-actions";
+import {createClient, fetchClients} from "../actions/client-actions";
 import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 
 export const STATUS = {
@@ -30,6 +30,11 @@ const clientsSlice = createSlice({
                 clientsAdapter.setAll(state, action.payload)
             },
             [fetchClients.rejected]: (state, action) => {
+                state.status = STATUS.ERROR;
+                state.error = action.error;
+            },
+            [createClient.fulfilled]: clientsAdapter.addOne,
+            [createClient.rejected]: (state, action) => {
                 state.status = STATUS.ERROR;
                 state.error = action.error;
             }

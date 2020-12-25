@@ -6,3 +6,7 @@ export const fetchClients = createAsyncThunk('clients/fetchClients', async () =>
     return response.data.data || response.data ; // in case pagination is disabled
 });
 
+export const createClient = createAsyncThunk('clients/createClient', async (client) => {
+    const response = await http.post('/clients', client);
+    return response.data
+});
