@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Button from "@material-ui/core/Button";
-import {createClient} from "../actions/client-actions";
+import {createClient} from "../../actions/client-actions";
 import {makeStyles} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import TextField from "@material-ui/core/TextField";
