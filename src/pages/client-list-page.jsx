@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
     },
     input: {
         display: "none"
-    }
+    },
 }));
 
 function ClientListPage() {
@@ -79,7 +79,7 @@ function ClientListPage() {
                 open={openDialog}
                 onClose={handleClose}
             />
-            <ClientDrawer />
+            <ClientDrawer/>
             <ClientList />
         </div>
     );

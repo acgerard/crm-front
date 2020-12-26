@@ -1,4 +1,4 @@
-import {createClient, fetchClients} from "../actions/client-actions";
+import {createClient, deleteClient, fetchClients, updateClient} from "../actions/client-actions";
 import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 
 export const STATUS = {
@@ -47,7 +47,9 @@ const clientsSlice = createSlice({
             [createClient.rejected]: (state, action) => {
                 state.status = STATUS.ERROR;
                 state.error = action.error;
-            }
+            },
+            [updateClient.fulfilled]: clientsAdapter.upsertOne,
+            [deleteClient.fulfilled]: clientsAdapter.removeOne
         }
     }
 );

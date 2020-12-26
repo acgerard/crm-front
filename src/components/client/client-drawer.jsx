@@ -19,11 +19,7 @@ export function ClientDrawer() {
 
     return (
         <Drawer anchor="right" open={open} onClose={handleClose}>
-        <div  onClick={handleClose}
-              onKeyDown={handleClose}
-        >
             <ClientForm/>
-        </div>
-    </Drawer>
+        </Drawer>
     );
 }
