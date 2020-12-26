@@ -12,3 +12,7 @@ export function getStatus(state) {
 export function getError(state) {
     return state.clientReducer.error;
 }
+
+export function getSelectedClientId(state) {
+    return state.clientReducer.selectedClientId;
+}
