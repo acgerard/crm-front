@@ -3,7 +3,7 @@ import {ClientList} from '../components/client/client-list';
 import {createClient, fetchClients} from "../actions/client-actions";
 import {FlashMessage} from "../components/flash-message";
 import {useDispatch, useSelector} from "react-redux";
-import {getClients, getError, getStatus,} from "../selectors/client-selectors";
+import {getError, getStatus,} from "../selectors/client-selectors";
 import {STATUS} from "../reducer/client-reducer";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import IconButton from "@material-ui/core/IconButton";
@@ -11,6 +11,7 @@ import {ClientNewForm} from "../components/client/client-new-form";
 import {makeStyles} from "@material-ui/core";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import * as Papa from 'papaparse';
+import {ClientDrawer} from "../components/client/client-drawer";
 
 const useStyles = makeStyles(() => ({
     buttons: {
@@ -24,18 +25,17 @@ const useStyles = makeStyles(() => ({
 
 function ClientListPage() {
     const classes = useStyles();
-    const clients = useSelector(getClients);
     const status = useSelector(getStatus);
     const error = useSelector(getError);
     const dispatch = useDispatch();
-    const [open, setOpen] = React.useState(false);
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     const handleOpen = () => {
-        setOpen(true);
+        setOpenDialog(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenDialog(false);
     };
 
     useEffect(() => {
@@ -76,10 +76,11 @@ function ClientListPage() {
 
             </div>
             <ClientNewForm
-                open={open}
+                open={openDialog}
                 onClose={handleClose}
             />
-            <ClientList clients={clients}/>
+            <ClientDrawer />
+            <ClientList />
         </div>
     );
 }

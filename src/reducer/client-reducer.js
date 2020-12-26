@@ -13,7 +13,8 @@ export const clientsAdapter = createEntityAdapter({
 });
 
 const initialState = clientsAdapter.getInitialState({
-    selectedClientId: null,
+    selectedClient: null,
+    isDrawerOpen: false,
     status: STATUS.INIT,
     error: null
 });
@@ -24,7 +25,11 @@ const clientsSlice = createSlice({
         reducers: {
             selectClient(state, action) {
                 state.selectedClientId = action.payload;
+                state.isDrawerOpen = true;
             },
+            closeClientDrawer(state) {
+                state.isDrawerOpen = false;
+            }
         },
         extraReducers: {
             [fetchClients.pending]: (state) => {
@@ -47,7 +52,7 @@ const clientsSlice = createSlice({
     }
 );
 
-export const { selectClient } = clientsSlice.actions;
+export const { selectClient, closeClientDrawer } = clientsSlice.actions;
 
 export default clientsSlice.reducer;
 

@@ -1,8 +1,10 @@
 import {clientsAdapter} from "../reducer/client-reducer";
+import {createSelector} from "@reduxjs/toolkit";
 
 export const {
     selectAll: getClients,
-    selectById: getClientById
+    selectById: getClientById,
+    selectEntities: getClientsById
 } = clientsAdapter.getSelectors((state) => state.clientReducer);
 
 export function getStatus(state) {
@@ -16,3 +18,16 @@ export function getError(state) {
 export function getSelectedClientId(state) {
     return state.clientReducer.selectedClientId;
 }
+
+export function isClientDrawerOpen(state) {
+    return state.clientReducer.isDrawerOpen;
+}
+
+export const getSelectedClient = createSelector(
+    [getClientsById, getSelectedClientId],
+    (clientsById, selectedId)=> {
+        if(selectedId) {
+            return clientsById[selectedId]
+        } else return null
+    }
+);

@@ -8,10 +8,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import {useDispatch, useSelector} from "react-redux";
-import {getSelectedClientId} from "../../selectors/client-selectors";
+import {getClients, getSelectedClientId} from "../../selectors/client-selectors";
 import {selectClient} from "../../reducer/client-reducer";
 
-export function ClientList({clients}) {
+export function ClientList() {
     const headColumns = [
         {id: "firstName", label: "First Name"},
         {id: "lastName", label: "Last Name"},
@@ -21,6 +21,7 @@ export function ClientList({clients}) {
     const [orderBy, setOrderBy] = useState(headColumns[0].id);
     const [order, setOrder] = useState('asc');
     const dispatch = useDispatch();
+    const clients = useSelector(getClients);
     const selectedClientId = useSelector(getSelectedClientId);
 
     const handleRequestSort = property => () => {
