@@ -1,11 +1,12 @@
 import React from 'react';
-import SnackbarContent from "@material-ui/core/SnackbarContent";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 export function FlashMessage({ error }) {
     return (
-        <SnackbarContent
-            message={error.message}
-        />
+        <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error.message}
+        </Alert>
     );
 }
 
