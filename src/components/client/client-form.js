@@ -4,16 +4,18 @@ import {getSelectedClient} from "../../selectors/client-selectors";
 import {updateClient} from "../../actions/client-actions";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(() => ({
     form: {
         display: "grid",
         "width": "600px",
         "grid-template-columns": "auto auto",
-        "column-gap": "8px",
-        "row-gap": "8px"
+        "column-gap": "1rem",
+        "row-gap": "1rem",
+        margin: "3rem"
     },
-    email: {
+    wholeLine: {
         "grid-column": "span 2"
     }
 }));
@@ -61,6 +63,13 @@ export function ClientForm() {
     };
 
     return (<div className={classes.form}>
+        <Typography
+            variant="h3"
+            gutterBottom
+            className={classes.wholeLine}
+        >
+            Client Form
+        </Typography>
         <TextField
             id="client-name-first"
             label="First Name"
@@ -79,7 +88,7 @@ export function ClientForm() {
         />
         <TextField
             id="client-email"
-            className={classes.email}
+            className={classes.wholeLine}
             label="email"
             required={true}
             value={updatedClient.email}
