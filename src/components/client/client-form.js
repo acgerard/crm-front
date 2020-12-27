@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getSelectedClient} from "../../selectors/client-selectors";
-import {updateClient} from "../../actions/client-actions";
+import {deleteClient, updateClient} from "../../actions/client-actions";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles(() => ({
     form: {
@@ -29,13 +32,18 @@ export function ClientForm() {
 
     useEffect(function () {
             setToUpdate(false);
-            setUpdatedClient(
-                {
-                    firstName: client.name.first,
-                    lastName: client.name.last,
-                    email: client.email
-                }
-            )
+            if(client) {
+                setUpdatedClient(
+                    {
+                        firstName: client.name.first,
+                        lastName: client.name.last,
+                        email: client.email
+                    }
+                )
+            } else {
+                setUpdatedClient({});
+            }
+
         },
         [client]
     );
@@ -62,14 +70,27 @@ export function ClientForm() {
         }
     };
 
+    const handleDelete = () => {
+        // TODO add confirmation dialog
+        dispatch(deleteClient(client._id))
+    };
+
+
     return (<div className={classes.form}>
-        <Typography
-            variant="h3"
-            gutterBottom
-            className={classes.wholeLine}
-        >
-            Client Form
-        </Typography>
+        <Toolbar className={classes.wholeLine}>
+            <Typography
+                variant="h3"
+                gutterBottom
+            >
+                Client Form
+            </Typography>
+            <IconButton
+                color="primary"
+                onClick={handleDelete}
+            >
+                <DeleteIcon/>
+            </IconButton>
+        </Toolbar>
         <TextField
             id="client-name-first"
             label="First Name"

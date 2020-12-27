@@ -53,12 +53,16 @@ const clientsSlice = createSlice({
                 state.error = action.error;
             },
             [updateClient.fulfilled]: clientsAdapter.upsertOne,
-            [deleteClient.fulfilled]: clientsAdapter.removeOne
+            [deleteClient.fulfilled]: (state, action) => {
+                state.isDrawerOpen = false;
+                state.selectedClientId = null;
+                clientsAdapter.removeOne(state, action);
+            }
         }
     }
 );
 
-export const { selectClient, closeClientDrawer, filterClient } = clientsSlice.actions;
+export const {selectClient, closeClientDrawer, filterClient} = clientsSlice.actions;
 
 export default clientsSlice.reducer;
 
