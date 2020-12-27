@@ -31,3 +31,7 @@ export const getSelectedClient = createSelector(
         } else return null
     }
 );
+
+export function getFilterClient(state) {
+    return state.clientReducer.filter;
+}

@@ -8,7 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import {useDispatch, useSelector} from "react-redux";
-import {getClients, getSelectedClientId} from "../../selectors/client-selectors";
+import {getClients, getFilterClient, getSelectedClientId} from "../../selectors/client-selectors";
 import {selectClient} from "../../reducer/client-reducer";
 
 export function ClientList() {
@@ -22,6 +22,7 @@ export function ClientList() {
     const [order, setOrder] = useState('asc');
     const dispatch = useDispatch();
     const clients = useSelector(getClients);
+    const filterClient = useSelector(getFilterClient);
     const selectedClientId = useSelector(getSelectedClientId);
 
     const handleRequestSort = property => () => {
@@ -29,6 +30,18 @@ export function ClientList() {
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
+
+    function filteredClients() {
+        if(filterClient) {
+            const regex = new RegExp(filterClient, 'g');
+            return clients.filter(client => {
+                return regex.test(client.name.first) ||
+                    regex.test(client.name.last) ||
+                    regex.test(client.name.email)
+            });
+        } else return clients
+
+    }
 
 
     return (
@@ -53,7 +66,7 @@ export function ClientList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {stableSort(clients, getComparator(order, orderBy)).map(client => {
+                    {stableSort(filteredClients(), getComparator(order, orderBy)).map(client => {
                         const isSelected = client._id === selectedClientId;
                         return (
                             <TableRow

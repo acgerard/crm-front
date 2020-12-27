@@ -16,6 +16,7 @@ const initialState = clientsAdapter.getInitialState({
     selectedClient: null,
     isDrawerOpen: false,
     status: STATUS.INIT,
+    filter: null,
     error: null
 });
 
@@ -29,6 +30,9 @@ const clientsSlice = createSlice({
             },
             closeClientDrawer(state) {
                 state.isDrawerOpen = false;
+            },
+            filterClient(state, action) {
+                state.filter = action.payload;
             }
         },
         extraReducers: {
@@ -54,7 +58,7 @@ const clientsSlice = createSlice({
     }
 );
 
-export const { selectClient, closeClientDrawer } = clientsSlice.actions;
+export const { selectClient, closeClientDrawer, filterClient } = clientsSlice.actions;
 
 export default clientsSlice.reducer;
 
