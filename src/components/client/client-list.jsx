@@ -10,12 +10,18 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import {useDispatch, useSelector} from "react-redux";
 import {getClients, getFilterClient, getSelectedClientId} from "../../selectors/client-selectors";
 import {selectClient} from "../../reducer/client-reducer";
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
 
 export function ClientList() {
     const headColumns = [
         {id: "firstName", label: "First Name"},
         {id: "lastName", label: "Last Name"},
-        {id: "email", label: "email"}
+        {id: "active", label: "Active"},
+        {id: "company", label: "Company"},
+        {id: "dtcf_contact", label: "DTCF Contact"},
+        {id: "country", label: "Country"},
+        {id: "comment", label: "Comment"},
     ];
 
     const [orderBy, setOrderBy] = useState(headColumns[0].id);
@@ -32,7 +38,7 @@ export function ClientList() {
     };
 
     function filteredClients() {
-        if(filterClient) {
+        if(filterClient !== '') {
             const regex = new RegExp(filterClient, 'g');
             return clients.filter(client => {
                 return regex.test(client.name.first) ||
@@ -75,9 +81,13 @@ export function ClientList() {
                                 onClick={(event) => dispatch(selectClient(client._id))}
                                 selected={isSelected}
                             >
-                                <TableCell component="th" scope="row">{client.firstName}</TableCell>
-                                <TableCell>{client.lastName}</TableCell>
-                                <TableCell>{client.email}</TableCell>
+                                <TableCell component="th" scope="row">{client.name.first}</TableCell>
+                                <TableCell>{client.name.last}</TableCell>
+                                <TableCell>{client.active ? <CheckIcon/> : <ClearIcon/>}</TableCell>
+                                <TableCell>{client.company}</TableCell>
+                                <TableCell>{client.dtcf_contact}</TableCell>
+                                <TableCell>{client.country}</TableCell>
+                                <TableCell>{client.comment}</TableCell>
                             </TableRow>
                         );
                     })}

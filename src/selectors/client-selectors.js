@@ -33,5 +33,5 @@ export const getSelectedClient = createSelector(
 );
 
 export function getFilterClient(state) {
-    return state.clientReducer.filter;
+    return state.clientReducer.filter || '';
 }
