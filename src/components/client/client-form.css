@@ -1,0 +1,12 @@
+
+.client-form {
+    margin: 1rem
+}
+
+.client-form-details {
+    margin-bottom: 1rem;
+}
+
+.client-form-addresses {
+    flex-direction: column;
+}

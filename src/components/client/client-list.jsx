@@ -13,10 +13,26 @@ import {selectClient} from "../../reducer/client-reducer";
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 
-export function ClientList() {
+export function ConnectedClientList() {
+    const dispatch = useDispatch();
+    const clients = useSelector(getClients);
+    const filterClient = useSelector(getFilterClient);
+    const selectedClientId = useSelector(getSelectedClientId);
+
+    return (
+        <ClientList
+            clients={clients}
+            filterClient={filterClient}
+            selectedClientId={selectedClientId}
+            handleSelectClient={(clientId) => dispatch(selectClient(clientId))}
+        />
+    );
+}
+
+export function ClientList({clients, filterClient, selectedClientId, handleSelectClient}) {
     const headColumns = [
-        {id: "firstName", label: "First Name"},
-        {id: "lastName", label: "Last Name"},
+        {id: "name.first", label: "First Name"},
+        {id: "name.last", label: "Last Name"},
         {id: "active", label: "Active"},
         {id: "company", label: "Company"},
         {id: "dtcf_contact", label: "DTCF Contact"},
@@ -26,10 +42,7 @@ export function ClientList() {
 
     const [orderBy, setOrderBy] = useState(headColumns[0].id);
     const [order, setOrder] = useState('asc');
-    const dispatch = useDispatch();
-    const clients = useSelector(getClients);
-    const filterClient = useSelector(getFilterClient);
-    const selectedClientId = useSelector(getSelectedClientId);
+
 
     const handleRequestSort = property => () => {
         const isAsc = orderBy === property && order === 'asc';
@@ -38,7 +51,7 @@ export function ClientList() {
     };
 
     function filteredClients() {
-        if(filterClient !== '') {
+        if (filterClient !== '') {
             const regex = new RegExp(filterClient, 'g');
             return clients.filter(client => {
                 return regex.test(client.name.first) ||
@@ -46,7 +59,6 @@ export function ClientList() {
                     regex.test(client.name.email)
             });
         } else return clients
-
     }
 
 
@@ -78,7 +90,7 @@ export function ClientList() {
                             <TableRow
                                 key={client._id}
                                 hover
-                                onClick={(event) => dispatch(selectClient(client._id))}
+                                onClick={() => handleSelectClient(client._id)}
                                 selected={isSelected}
                             >
                                 <TableCell component="th" scope="row">{client.name.first}</TableCell>
@@ -99,10 +111,17 @@ export function ClientList() {
 
 
 function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
+    const properties = orderBy.split('.');
+    let valueA = a;
+    let valueB = b;
+    properties.forEach(prop => {
+        valueA = valueA[prop];
+        valueB = valueB[prop];
+    });
+    if (valueB < valueA) {
         return -1;
     }
-    if (b[orderBy] > a[orderBy]) {
+    if (valueB > valueA) {
         return 1;
     }
     return 0;

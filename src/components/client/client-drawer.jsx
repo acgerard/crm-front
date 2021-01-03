@@ -3,7 +3,7 @@ import Drawer from "@material-ui/core/Drawer";
 import {useDispatch, useSelector} from "react-redux";
 import {isClientDrawerOpen} from "../../selectors/client-selectors";
 import {closeClientDrawer} from "../../reducer/client-reducer";
-import {ClientForm} from "./client-form";
+import {ConnectedClientForm} from "./client-form";
 
 
 export function ClientDrawer() {
@@ -19,7 +19,7 @@ export function ClientDrawer() {
 
     return (
         <Drawer anchor="right" open={open} onClose={handleClose}>
-            <ClientForm/>
+            <ConnectedClientForm/>
         </Drawer>
     );
 }

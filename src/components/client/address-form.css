@@ -1,0 +1,12 @@
+
+.address-div {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    margin-top:1rem;
+}
+
+.address-desc {
+    grid-column: span 3
+}
