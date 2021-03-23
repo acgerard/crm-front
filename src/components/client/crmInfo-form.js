@@ -49,7 +49,7 @@ export function CrmInfoForm({contact, newsletter, comment, update}) {
         />
         <TextareaAutosize
             aria-label="minimum height"
-            rowsMin={3}
+            rowsMin={5}
             placeholder="Comment"
             className="crmInfo-comment"
             value={updatedComment}

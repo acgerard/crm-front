@@ -23,8 +23,8 @@ export function ConnectedClientNewForm({open, onClose}) {
 }
 
 export function ClientNewForm({open, onClose, handleCreate}) {
-    const [contactInfo, setContactInfo] = useState({title: "", name:{first:"", lastName: ""}, company:"", phone:"", email:{} });
-    const [crmInfo, setCrmInfo] = useState({dtcf_contact:"", comment: "", newsletter: false});
+    const [contactInfo, setContactInfo] = useState({title: "", firstName:"", lastName: "", company:"", phone:"", email:{} });
+    const [crmInfo, setCrmInfo] = useState({contact:"", comment: "", newsletter: false});
     const [proAddress, setProAddress] = useState({description:"", zipCode: "", town: "", country:""});
     const [persoAddress, setPersoAddress] = useState({description:"", zipCode: "", town: "", country:""});
 
@@ -43,8 +43,8 @@ export function ClientNewForm({open, onClose, handleCreate}) {
             <DialogContent className="client-new-dialog">
                 <ContactForm
                     title={contactInfo.title}
-                    firstName={contactInfo.name.first}
-                    lastName={contactInfo.name.last}
+                    firstName={contactInfo.firstName}
+                    lastName={contactInfo.lastName}
                     company={contactInfo.company}
                     persoEmail={contactInfo.email.perso}
                     proEmail={contactInfo.email.pro}
@@ -52,7 +52,7 @@ export function ClientNewForm({open, onClose, handleCreate}) {
                     update={(updated) => setContactInfo(updated)}
                 />
                 <CrmInfoForm
-                    contact={crmInfo.dtcf_contact}
+                    contact={crmInfo.contact}
                     newsletter={crmInfo.newsletter}
                     comment={crmInfo.comment}
                     update={(crmInfo) => setCrmInfo(crmInfo)}

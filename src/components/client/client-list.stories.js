@@ -16,7 +16,7 @@ export const WithClients = Template.bind({});
 WithClients.args = {
     clients: [
         {
-            _id: 1,
+            id: 1,
             name: {first: "Tony", last: "Stark"},
             active: true,
             company: "Stark Enterprises",
@@ -25,7 +25,7 @@ WithClients.args = {
             comment: "Magnificent comment"
         },
         {
-            _id: 2,
+            id: 2,
             name: {first: "Steven", last: "Rogers"},
             active: true,
             company: "Stark Enterprises",
@@ -45,7 +45,7 @@ export const WithLongComment = Template.bind({});
 WithLongComment.args = {
     clients: [
         {
-            _id: 1,
+            id: 1,
             name: {first: "Tony", last: "Stark"},
             active: false,
             company: "Stark Enterprises",
@@ -60,7 +60,7 @@ export const Huge = Template.bind({});
 Huge.args = {
     clients: [...Array(1000).keys()].map(index => {
             return {
-                _id: index,
+                id: index,
                 name: {first: `FirstName${index}`, last: `LastName${index}`},
                 active: true,
                 company: "Company",

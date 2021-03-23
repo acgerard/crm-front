@@ -5,12 +5,13 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Container from "@material-ui/core/Container";
 import {SpancoList} from "./components/spanco/spanco-list";
+import {SignInSide} from "./components/SignInSide";
 
 function App() {
     return (
         <Fragment>
             <Route exact path="/">
-                <Redirect to="/crm/clients"/>
+                <Redirect to="/login"/>
             </Route>
             <Route
                 path="/crm"
@@ -27,6 +28,10 @@ function App() {
                         </Switch>
                     </Container>
                 )}
+            />
+            <Route
+                path={"/login"}
+                render={() => <SignInSide/>}
             />
         </Fragment>
     );

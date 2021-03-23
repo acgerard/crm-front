@@ -23,8 +23,8 @@ export function ConnectedClientForm() {
 
     const update = (contact, proAddress, persoAddress, crmInfo, active) => {
         dispatch(updateClient({
-            id: client._id,
-            client: {
+            id: client.id,
+            data: {
                 ...contact,
                 ...crmInfo,
                 active: active,
@@ -38,7 +38,7 @@ export function ConnectedClientForm() {
 
     const handleDelete = () => {
         // TODO add confirmation dialog
-        dispatch(deleteClient(client._id))
+        dispatch(deleteClient(client.id))
     };
 
     return (
@@ -51,29 +51,30 @@ export function ConnectedClientForm() {
 }
 
 export function ClientForm({client, update, handleDelete}) {
-    const [updatedActive, setActive] = useState(client?.active || false);
+    const [updatedActive, setActive] = useState(client?.data.active || false);
 
     useEffect(function () {
-            setActive(client?.active || false);
+            setActive(client?.data.active || false);
         },
         [client]
     );
 
     const getCrmInfo = () => {
         return {
-            contact: client.dtcf_contact,
-            comment: client.comment,
-            newsletter: client.newsletter
+            contact: client?.data.contact,
+            comment: client?.data.comment,
+            newsletter: client?.data.newsletter
         }
     };
 
     const getContactInfo = () => {
         return {
-            title: client.title,
-            name: client.name,
-            email: client.email,
-            company: client.company,
-            phone: client.phone,
+            title: client?.data.title,
+            firstName: client?.data.firstName,
+            lastName: client?.data.lastName,
+            email: client?.data.email,
+            company: client?.data.company,
+            phone: client?.data.phone,
         }
     };
 
@@ -83,7 +84,7 @@ export function ClientForm({client, update, handleDelete}) {
                 variant="h3"
                 gutterBottom
             >
-                {`${client?.name?.first} ${client?.name?.last}`}
+                {`${client?.data.firstName} ${client?.data.lastName}`}
             </Typography>
             <IconButton
                 color="primary"
@@ -98,7 +99,7 @@ export function ClientForm({client, update, handleDelete}) {
                 name="active"
                 checked={updatedActive}
                 onChange={(e) => setActive(e.target.checked)}
-                onBlur={() => update(getContactInfo(), client.address?.pro, client.address?.perso, getCrmInfo(), updatedActive)}
+                onBlur={() => update(getContactInfo(), client?.data.address?.pro, client?.data.address?.perso, getCrmInfo(), updatedActive)}
             />}
             label="Active"
         />
@@ -112,14 +113,14 @@ export function ClientForm({client, update, handleDelete}) {
             </AccordionSummary>
             <AccordionDetails className="client-form-details">
                 <ContactForm
-                    title={client.title}
-                    firstName={client.name?.first}
-                    lastName={client.name?.last}
-                    phone={client.phone}
-                    persoEmail={client.email?.perso}
-                    company={client.company}
-                    proEmail={client.email?.pro}
-                    update={(contact) => update(contact, client.address?.pro, client.address?.perso, getCrmInfo(), updatedActive)}
+                    title={client?.data.title}
+                    firstName={client?.data.firstName}
+                    lastName={client?.data.lastName}
+                    phone={client?.data.phone}
+                    persoEmail={client?.data.email?.perso}
+                    company={client?.data.company}
+                    proEmail={client?.data.email?.pro}
+                    update={(contact) => update(contact, client?.data.address?.pro, client?.data.address?.perso, getCrmInfo(), updatedActive)}
                 />
             </AccordionDetails>
         </Accordion>
@@ -134,19 +135,19 @@ export function ClientForm({client, update, handleDelete}) {
             <AccordionDetails className="client-form-details client-form-addresses">
                 <AddressForm
                     label="Professional address"
-                    description={client.address?.pro?.description}
-                    zipCode={client.address?.pro?.zipCode}
-                    town={client.address?.pro?.town}
-                    country={client.address?.pro?.country}
-                    update={(address) => update(getContactInfo(), address, client.address?.perso, getCrmInfo(), updatedActive)}
+                    description={client?.data.address?.pro?.description}
+                    zipCode={client?.data.address?.pro?.zipCode}
+                    town={client?.data.address?.pro?.town}
+                    country={client?.data.address?.pro?.country}
+                    update={(address) => update(getContactInfo(), address, client?.data.address?.perso, getCrmInfo(), updatedActive)}
                 />
                 <AddressForm
                     label="Personal address"
-                    description={client.address?.perso?.description}
-                    zipCode={client.address?.perso?.zipCode}
-                    town={client.address?.perso?.town}
-                    country={client.address?.perso?.country}
-                    update={(address) => update(getContactInfo(), client.address?.pro, address, getCrmInfo(), updatedActive)}
+                    description={client?.data.address?.perso?.description}
+                    zipCode={client?.data.address?.perso?.zipCode}
+                    town={client?.data.address?.perso?.town}
+                    country={client?.data.address?.perso?.country}
+                    update={(address) => update(getContactInfo(), client?.data.address?.pro, address, getCrmInfo(), updatedActive)}
                 />
             </AccordionDetails>
         </Accordion>
@@ -160,10 +161,10 @@ export function ClientForm({client, update, handleDelete}) {
             </AccordionSummary>
             <AccordionDetails className="client-form-details">
                 <CrmInfoForm
-                    contact={client.dtcf_contact}
-                    newsletter={client.newsletter}
-                    comment={client.comment}
-                    update={(crmInfo) => update(getContactInfo(), client.address?.pro, client.address?.perso, crmInfo, updatedActive)}
+                    contact={client?.data.contact}
+                    newsletter={client?.data.newsletter}
+                    comment={client?.data.comment}
+                    update={(crmInfo) => update(getContactInfo(), client?.data.address?.pro, client?.data.address?.perso, crmInfo, updatedActive)}
                 />
             </AccordionDetails>
         </Accordion>

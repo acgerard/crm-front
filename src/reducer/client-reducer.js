@@ -9,7 +9,7 @@ export const STATUS = {
 };
 
 export const clientsAdapter = createEntityAdapter({
-    selectId: (client) => client._id
+    selectId: (client) => client.id
 });
 
 const initialState = clientsAdapter.getInitialState({
@@ -52,7 +52,9 @@ const clientsSlice = createSlice({
                 state.status = STATUS.ERROR;
                 state.error = action.error;
             },
-            [updateClient.fulfilled]: clientsAdapter.upsertOne,
+            [updateClient.fulfilled]: (state, action) => {
+                clientsAdapter.upsertOne(state, action)
+            },
             [deleteClient.fulfilled]: (state, action) => {
                 state.isDrawerOpen = false;
                 state.selectedClientId = null;

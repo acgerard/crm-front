@@ -38,26 +38,26 @@ export function ClientList({clients, filterClient, handleSelectClient}) {
         if (filterClient !== '') {
             const regex = new RegExp(filterClient, 'g');
             return clients.filter(client => {
-                return regex.test(client.name.first) ||
-                    regex.test(client.name.last) ||
-                    regex.test(client.country) ||
-                    regex.test(client.comment) ||
-                    regex.test(client.company) ||
-                    regex.test(client.dtcf_contact)
+                return regex.test(client.data.firstName) ||
+                    regex.test(client.data.lastName) ||
+                    regex.test(client.data.country) ||
+                    regex.test(client.data.comment) ||
+                    regex.test(client.data.company) ||
+                    regex.test(client.data.dtcf_contact)
             });
         } else return clients
     }
 
     const data = filteredClients().map(client => {
         return {
-            _id: client._id,
-            firstName: client.name.first,
-            lastName: client.name.last,
-            country: client.addresses?.pro?.country || client.addresses?.perso?.country,
-            dtcf_contact: client.dtcf_contact,
-            comment: client.comment,
-            company: client.company,
-            active: client.active
+            id: client.id,
+            firstName: client.data.firstName,
+            lastName: client.data.lastName,
+            country: client.data.addresses?.pro?.country || client.data.addresses?.perso?.country,
+            dtcf_contact: client.data.dtcf_contact,
+            comment: client.data.comment,
+            company: client.data.company,
+            active: client.data.active
         }
     });
 
@@ -67,7 +67,7 @@ export function ClientList({clients, filterClient, handleSelectClient}) {
                 rowCount={data.length}
                 data={data}
                 columns={headColumns}
-                onRowClick={({index}) => handleSelectClient(data[index]._id)}
+                onRowClick={({index}) => handleSelectClient(data[index].id)}
             />
         </Paper>
     );

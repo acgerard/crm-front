@@ -37,7 +37,8 @@ export function ContactForm({title, firstName, lastName, company, phone, proEmai
         ) {
             update({
                 title: updatedTitle,
-                name: {first: updatedFirstName, last: updatedLastName},
+                firstName: updatedFirstName,
+                lastName: updatedLastName,
                 company: updatedCompany,
                 phone: updatedPhone,
                 email: {pro: getEmail(updatedProEmail), perso: getEmail(updatedPersoEmail)}
