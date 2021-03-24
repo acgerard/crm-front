@@ -4,7 +4,7 @@ import {createClient, fetchClients} from "../actions/client-actions";
 import {FlashMessage} from "../components/flash-message";
 import {useDispatch, useSelector} from "react-redux";
 import {getError, getFilterClient, getStatus,} from "../selectors/client-selectors";
-import {filterClient, STATUS} from "../reducer/client-reducer";
+import {filterClient} from "../reducer/client-reducer";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import IconButton from "@material-ui/core/IconButton";
 import {ConnectedClientNewForm} from "../components/client/client-new-form";
@@ -14,6 +14,7 @@ import * as Papa from 'papaparse';
 import {ClientDrawer} from "../components/client/client-drawer";
 import Toolbar from "@material-ui/core/Toolbar";
 import TextField from "@material-ui/core/TextField";
+import {STATUS} from "../reducer/common";
 
 const useStyles = makeStyles(() => ({
     buttons: {

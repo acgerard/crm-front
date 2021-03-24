@@ -6,6 +6,7 @@ import Tab from "@material-ui/core/Tab";
 import Container from "@material-ui/core/Container";
 import {SpancoList} from "./components/spanco/spanco-list";
 import {SignInSide} from "./components/SignInSide";
+import ProductListPage from "./pages/product-list-page";
 
 function App() {
     return (
@@ -21,10 +22,12 @@ function App() {
                             <Tab label="Clients" href="#basic-tabs" value="/crm/clients" component={Link}
                                  to="/crm/clients"/>
                             <Tab label="Spanco" value="/crm/spancos" component={Link} to="/crm/spancos"/>
+                            <Tab label="Products" value="/crm/products" component={Link} to="/crm/products"/>
                         </Tabs>
                         <Switch>
                             <Route exact path="/crm/clients" component={ClientListPage}/>
                             <Route exact path="/crm/spancos" component={SpancoList}/>
+                            <Route exact path="/crm/products" component={ProductListPage}/>
                         </Switch>
                     </Container>
                 )}

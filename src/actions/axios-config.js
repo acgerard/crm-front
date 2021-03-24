@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from 'js-cookie';
 
 export const http = axios.create({
     baseURL: 'http://localhost:3000',
@@ -7,7 +6,6 @@ export const http = axios.create({
     headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
-        'Prefer': 'return=representation',
-        'Authorization': `Bearer ${Cookies.get("token")}`
+        'Prefer': 'return=representation'
     }
 });

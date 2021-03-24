@@ -1,12 +1,7 @@
 import {createClient, deleteClient, fetchClients, updateClient} from "../actions/client-actions";
 import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
+import {STATUS} from "./common";
 
-export const STATUS = {
-    INIT: "INIT",
-    LOADING: "LOADING",
-    OK: "OK",
-    ERROR: "ERROR",
-};
 
 export const clientsAdapter = createEntityAdapter({
     selectId: (client) => client.id
