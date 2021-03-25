@@ -4,9 +4,9 @@ import ClientListPage from "./pages/client-list-page";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Container from "@material-ui/core/Container";
-import {SpancoList} from "./components/spanco/spanco-list";
 import {SignInSide} from "./components/SignInSide";
 import ProductListPage from "./pages/product-list-page";
+import SpancoListPage from "./pages/spanco-list-page";
 
 function App() {
     return (
@@ -26,7 +26,7 @@ function App() {
                         </Tabs>
                         <Switch>
                             <Route exact path="/crm/clients" component={ClientListPage}/>
-                            <Route exact path="/crm/spancos" component={SpancoList}/>
+                            <Route exact path="/crm/spancos" component={SpancoListPage}/>
                             <Route exact path="/crm/products" component={ProductListPage}/>
                         </Switch>
                     </Container>
