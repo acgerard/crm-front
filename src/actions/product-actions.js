@@ -6,14 +6,14 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
 });
 
 export const createProduct = createAsyncThunk('products/createProduct', async (product) => {
-    return (await http.post('/products', {...product, data:{}})).data[0];
+    return (await http.post('/products', {...product, data:{}})).data;
 });
 
 export const updateProduct = createAsyncThunk('products/updateProduct', async (product) => {
-    return (await http.put(`/products?code=eq.${product.code}`, {...product, data:{}})).data[0];
+    return (await http.put(`/products/${product.code}`, {...product, data:{}})).data;
 });
 
 export const deleteProduct = createAsyncThunk('products/deleteProduct', async (productCode) => {
-    await http.delete(`/products?code=eq.${productCode}`);
+    await http.delete(`/products/${productCode}`);
     return productCode
 });

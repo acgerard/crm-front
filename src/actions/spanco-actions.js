@@ -6,14 +6,14 @@ export const fetchSpancos = createAsyncThunk('spanco/fetchSpancos', async () => 
 });
 
 export const createSpanco = createAsyncThunk('spanco/createSpanco', async (spanco) => {
-    return (await http.post('/spancos', {spanco})).data[0];
+    return (await http.post('/spancos', {spanco})).data;
 });
 
 export const updateSpanco = createAsyncThunk('spanco/updateSpanco', async (spanco) => {
-    return (await http.put(`/spancos?product_code=eq.${spanco.product_code}&promo=eq.${spanco.promo}`, spanco)).data[0];
+    return (await http.put(`/spancos/${spanco.product_code}/${spanco.promo}`, spanco)).data;
 });
 
 export const deleteSpanco = createAsyncThunk('spanco/deleteSpanco', async (productCode, promo) => {
-    await http.delete(`/spancos?product_code=eq.${productCode}&promo=eq.${promo}`);
+    await http.delete(`/spancos/${productCode}/${promo}`);
     return productCode
 });

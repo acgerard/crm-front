@@ -6,15 +6,17 @@ export const fetchClients = createAsyncThunk('clients/fetchClients', async () =>
 });
 
 export const createClient = createAsyncThunk('clients/createClient', async (client) => {
-    return (await http.post('/clients', {data: {...client, active: true}})).data[0];
+    const response = await http.post('/clients', {...client, active: true});
+    return response.data;
 });
 
 export const updateClient = createAsyncThunk('clients/updateClient', async (client) => {
-    return (await http.put(`/clients?id=eq.${client.id}`, client)).data[0];
+    const response = await http.put(`/clients/${client.id}`, client);
+    return response.data;
 });
 
 export const deleteClient = createAsyncThunk('clients/deleteClient', async (clientId) => {
-    await http.delete(`/clients?id=eq.${clientId}`);
+    await http.delete(`/clients/${clientId}`);
     return clientId
 });
 
