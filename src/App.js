@@ -19,15 +19,15 @@ function App() {
                 render={({location}) => (
                     <Container>
                         <Tabs value={location.pathname}>
-                            <Tab label="Clients" href="#basic-tabs" value="/crm/clients" component={Link}
-                                 to="/crm/clients"/>
-                            <Tab label="Spanco" value="/crm/spancos" component={Link} to="/crm/spancos"/>
-                            <Tab label="Products" value="/crm/products" component={Link} to="/crm/products"/>
+                            <Tab label="Clients" href="#basic-tabs" value="/clients" component={Link}
+                                 to="/clients"/>
+                            <Tab label="Spanco" value="/spancos" component={Link} to="/spancos"/>
+                            <Tab label="Products" value="/products" component={Link} to="/products"/>
                         </Tabs>
                         <Switch>
-                            <Route exact path="/crm/clients" component={ClientListPage}/>
-                            <Route exact path="/crm/spancos" component={SpancoListPage}/>
-                            <Route exact path="/crm/products" component={ProductListPage}/>
+                            <Route exact path="/clients" component={ClientListPage}/>
+                            <Route exact path="/spancos" component={SpancoListPage}/>
+                            <Route exact path="/products" component={ProductListPage}/>
                         </Switch>
                     </Container>
                 )}

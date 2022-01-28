@@ -5,18 +5,11 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./store";
-import Cookies from 'js-cookie';
-import {http} from "./actions/axios-config";
-
-
-if(Cookies.get('crm-token')) {
-    http.defaults.headers.common.Authorization = `Bearer ${Cookies.get('crm-token')}`;
-}
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter>
+            <BrowserRouter basename={'/front/crm'}>
                 <App/>
             </BrowserRouter>
         </Provider>
