@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {Link, Redirect, Route, Switch} from "react-router-dom";
 import ClientListPage from "./pages/client-list-page";
 import Tabs from "@material-ui/core/Tabs";
@@ -7,36 +7,53 @@ import Container from "@material-ui/core/Container";
 import {SignInSide} from "./components/SignInSide";
 import ProductListPage from "./pages/product-list-page";
 import SpancoListPage from "./pages/spanco-list-page";
+import {useLocation} from "react-router-dom";
 
 function App() {
+    const location = useLocation()
     return (
-        <Fragment>
-            <Route exact path="/">
-                <Redirect to="/login"/>
-            </Route>
-            <Route
-                path="/crm"
-                render={({location}) => (
-                    <Container>
-                        <Tabs value={location.pathname}>
-                            <Tab label="Clients" href="#basic-tabs" value="/clients" component={Link}
-                                 to="/clients"/>
-                            <Tab label="Spanco" value="/spancos" component={Link} to="/spancos"/>
-                            <Tab label="Products" value="/products" component={Link} to="/products"/>
-                        </Tabs>
-                        <Switch>
-                            <Route exact path="/clients" component={ClientListPage}/>
-                            <Route exact path="/spancos" component={SpancoListPage}/>
-                            <Route exact path="/products" component={ProductListPage}/>
-                        </Switch>
-                    </Container>
-                )}
-            />
+        <Switch>
             <Route
                 path={"/login"}
                 render={() => <SignInSide/>}
             />
-        </Fragment>
+            <Route exact path="/clients">
+                <Container>
+                    <Tabs value={location.pathname}>
+                        <Tab label="Clients" href="#basic-tabs" value="/clients" component={Link}
+                             to="/clients"/>
+                        <Tab label="Spanco" value="/spancos" component={Link} to="/spancos"/>
+                        <Tab label="Products" value="/products" component={Link} to="/products"/>
+                    </Tabs>
+                    <ClientListPage/>
+                </Container>
+            </Route>
+            <Route exact path="/spancos" >
+                <Container>
+                    <Tabs value={location.pathname}>
+                        <Tab label="Clients" href="#basic-tabs" value="/clients" component={Link}
+                             to="/clients"/>
+                        <Tab label="Spanco" value="/spancos" component={Link} to="/spancos"/>
+                        <Tab label="Products" value="/products" component={Link} to="/products"/>
+                    </Tabs>
+                    <SpancoListPage/>
+                </Container>
+            </Route>
+            <Route exact path="/products">
+                <Container>
+                    <Tabs value={location.pathname}>
+                        <Tab label="Clients" href="#basic-tabs" value="/clients" component={Link}
+                             to="/clients"/>
+                        <Tab label="Spanco" value="/spancos" component={Link} to="/spancos"/>
+                        <Tab label="Products" value="/products" component={Link} to="/products"/>
+                    </Tabs>
+                    <ProductListPage/>
+                </Container>
+            </Route>
+            <Route path="/">
+                <Redirect to="/login"/>
+            </Route>
+        </Switch>
     );
 }
 
