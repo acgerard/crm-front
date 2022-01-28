@@ -30,8 +30,10 @@ jobs:
           cache: 'npm'
           
       # Build
-      - name: Install & Build
-        run: npm install && npm run build
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
         
       - name: Deploy to O2Switch
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
