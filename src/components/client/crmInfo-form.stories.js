@@ -1,27 +1,27 @@
-import React from 'react';
+import React from 'react'
 
-import {CrmInfoForm} from "./crmInfo-form";
+import { CrmInfoForm } from './crmInfo-form'
 
 export default {
-    title: 'Client Subform/CRM Info Form',
-    component: CrmInfoForm,
-    argTypes: {
-        update: {action: "update"}
-    }
-};
+  title: 'Client Subform/CRM Info Form',
+  component: CrmInfoForm,
+  argTypes: {
+    update: { action: 'update' },
+  },
+}
 
-const Template = (args) => <CrmInfoForm {...args}/>;
+const Template = args => <CrmInfoForm {...args} />
 
-export const WithValues = Template.bind({});
+export const WithValues = Template.bind({})
 WithValues.args = {
-    contact: "Nick Fury",
-    newsletter: true,
-    comment: "Comment that describes stuff",
-};
+  contact: 'Nick Fury',
+  newsletter: true,
+  comment: 'Comment that describes stuff',
+}
 
-export const Empty = Template.bind({});
+export const Empty = Template.bind({})
 Empty.args = {
-    contact: undefined,
-    newsletter: undefined,
-    comment: undefined,
-};
+  contact: undefined,
+  newsletter: undefined,
+  comment: undefined,
+}
