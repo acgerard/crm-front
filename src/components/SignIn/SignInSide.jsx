@@ -8,8 +8,8 @@ import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import { signIn } from '../actions/signIn-actions'
-import { useHistory } from 'react-router-dom'
+import { signIn } from '../../actions/signIn-actions'
+import { useNavigate } from 'react-router'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,10 +45,10 @@ export function SignInSide() {
   const classes = useStyles()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleSignIn = () => {
-    signIn(email, password).then(() => history.push('/clients'))
+    signIn(email, password).then(() => navigate('/clients'))
   }
 
   return (

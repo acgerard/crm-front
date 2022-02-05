@@ -5,6 +5,10 @@ export async function signIn(email: string, password: string) {
     await http.post('/users/authenticate', { email, password })
     http.defaults.headers.Authorization = `Basic ${window.btoa(`${email}:${password}`)}`
   } catch (e) {
-    // TODO logout
+    // TODO logout redirect to login
   }
+}
+
+export function logout() {
+  http.defaults.headers.Authorization = null
 }

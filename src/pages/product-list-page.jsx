@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../actions/product-actions'
 import { getProductsError, getProductsStatus } from '../selectors/product-selectors'
 import { STATUS } from '../reducer/common'
-import { FlashMessage } from '../components/flash-message'
+import { FlashMessage } from '../components/common/flash-message'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
@@ -41,7 +41,7 @@ function ProductListPage() {
     <div>
       {status === STATUS.ERROR && <FlashMessage error={error} />}
       <Toolbar className={classes.toolbar}>
-        <IconButton color="primary" onClick={handleOpen}>
+        <IconButton color="secondary" onClick={handleOpen}>
           <AddCircleOutlineIcon />
         </IconButton>
       </Toolbar>

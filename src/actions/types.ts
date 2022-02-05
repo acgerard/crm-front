@@ -50,8 +50,12 @@ export type Product = {
 export type Spanco = {
   productCode: string
   promo: string
-  configuration?: string // TODO define SPanco configuration
+  configuration?: SpancoConfiguration
   offers: Offer[]
+}
+
+export type SpancoConfiguration = {
+  steps: string[]
 }
 
 export type Offer = {
@@ -61,4 +65,6 @@ export type Offer = {
   price?: number
   comment?: string
   action?: string
+  probability?: number
+  followedBy?: string
 }

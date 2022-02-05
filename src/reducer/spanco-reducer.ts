@@ -3,8 +3,12 @@ import { STATUS } from './common'
 import { createSpanco, deleteSpanco, fetchSpancos, updateSpanco } from '../actions/spanco-actions'
 import { Spanco } from '../actions/types'
 
+export function getSpancoId(productCode: string, promo: string) {
+  return `${productCode}-${promo}`
+}
+
 export const spancoAdapter = createEntityAdapter<Spanco>({
-  selectId: spanco => `${spanco.productCode}-${spanco.promo}`,
+  selectId: spanco => getSpancoId(spanco.productCode, spanco.promo),
 })
 
 const initialState = spancoAdapter.getInitialState({

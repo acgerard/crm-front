@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import React from 'react'
 
-export function SpancoNewForm({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function SpancoNewDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-product-title">Create Spanco</DialogTitle>

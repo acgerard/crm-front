@@ -5,14 +5,31 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
+import { deepPurple, teal } from '@material-ui/core/colors'
+
+import './style.css'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: deepPurple[700],
+    },
+    secondary: {
+      main: teal['A700'],
+    },
+  },
+})
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter basename={'/front/crm'}>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter basename={'/front/crm'}>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )

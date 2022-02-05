@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { ConnectedClientList } from '../components/client/client-list'
 import { createClient, fetchClients } from '../actions/client-actions'
-import { FlashMessage } from '../components/flash-message'
+import { FlashMessage } from '../components/common/flash-message'
 import { useDispatch, useSelector } from 'react-redux'
 import { getError, getFilterClient, getStatus } from '../selectors/client-selectors'
 import { filterClient } from '../reducer/client-reducer'
@@ -70,12 +70,12 @@ function ClientListPage() {
       <Toolbar className={classes.toolbar}>
         <TextField id="client-search" label="Search" value={filter} onChange={e => dispatch(filterClient(e.target.value))} />
         <div className={classes.buttons}>
-          <IconButton color="primary" onClick={handleOpen}>
+          <IconButton color="secondary" onClick={handleOpen}>
             <AddCircleOutlineIcon />
           </IconButton>
           <input accept=".csv" className={classes.input} id="upload-clients" type="file" onChange={handleFile} />
           <label htmlFor="upload-clients">
-            <IconButton color="primary" component="span">
+            <IconButton color="secondary" component="span">
               <CloudUploadIcon />
             </IconButton>
           </label>
