@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { AppBar, Menu, MenuItem, useScrollTrigger } from '@material-ui/core'
+import { AppBar, Menu, MenuItem } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
 import { Menu as MenuIcon } from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton'
@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { ToolbarBreadCrumb } from '../Breadcrumbs/ToolbarBreadCrumb'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { logout } from '../../../actions/signIn-actions'
+import { SideBar } from '../../Sidebar/SideBar'
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -20,15 +21,21 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridTemplateColumns: '1fr 450px',
     gridAutoFlow: 'column',
+    height: '100%',
+    overflowY: 'hidden',
   },
 
   content: {
-    padding: '0 16px',
-  },
-
-  sidebar: {
     display: 'grid',
     height: '100%',
+    position: 'relative',
+    overflowY: 'hidden',
+  },
+  sidebar: {
+    padding: theme.spacing(2),
+    display: 'grid',
+    height: '100%',
+    overflowY: 'scroll',
     backgroundColor: '#f5f3f2',
   },
   toolbar: {
@@ -47,10 +54,6 @@ export function DefaultLayout(): ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
   const navigate = useNavigate()
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  })
 
   const handleClick = (event: { currentTarget: HTMLElement }) => {
     setAnchorEl(event.currentTarget)
@@ -79,7 +82,7 @@ export function DefaultLayout(): ReactElement {
 
   return (
     <div className={classes.layout}>
-      <AppBar elevation={trigger ? 4 : 0}>
+      <AppBar>
         <Toolbar className={classes.toolbar}>
           <IconButton id="menu-button" size="medium" edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon />
@@ -116,8 +119,4 @@ export function DefaultLayout(): ReactElement {
       </div>
     </div>
   )
-}
-
-export function SideBar() {
-  return <div>RIGHT SIDE BAR</div>
 }

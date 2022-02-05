@@ -6,6 +6,8 @@ export const {
   selectAll: getProducts,
   selectById: getProductByCode,
   selectEntities: getProductsByCode,
+  selectTotal: getNbProducts,
+  selectIds: getProductCodes,
 } = productsAdapter.getSelectors(getProductState)
 
 export function getProductsStatus(state: RootState) {

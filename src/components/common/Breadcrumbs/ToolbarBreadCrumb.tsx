@@ -14,9 +14,9 @@ const useStyles = makeStyles(theme => ({
 
 export function ToolbarBreadCrumb() {
   const classes = useStyles()
-  const matchSpanco = useMatch('/spancos')
-  const matchClient = useMatch('/clients')
-  const matchProduct = useMatch('/products')
+  const matchSpanco = useMatch('/spancos/*')
+  const matchClient = useMatch('/clients/*')
+  const matchProduct = useMatch('/products/*')
 
   return (
     <Breadcrumbs className={classes.breadcrumb}>

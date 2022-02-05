@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { deleteProduct, updateProduct } from '../../actions/product-actions'
 import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { makeStyles } from '@material-ui/core'
 import { Product } from '../../actions/types'
 import { useAppDispatch } from '../../store'
+import Button from '@material-ui/core/Button'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   form: {
     width: '100%',
-    display: 'flex',
-    'align-items': 'center',
-    'justify-content': 'space-between',
+    display: 'grid',
+    gridTemplateRows: 'auto auto auto 1fr',
+    rowGap: theme.spacing(2),
   },
-  field: {
-    'margin-right': '1rem',
+  button: {
+    justifySelf: 'end',
   },
 }))
 
@@ -25,33 +25,23 @@ export function ProductForm({ product }: { product: Product }) {
   const [code, setCode] = useState(product.code)
   const [name, setName] = useState(product.name)
 
+  useEffect(() => {
+    setCode(product.code)
+    setName(product.name)
+  }, [product])
+
   const handleUpdateProduct = () => {
     dispatch(updateProduct({ code, name }))
   }
 
   return (
     <div className={classes.form}>
-      <div>
-        <TextField
-          id="product-code"
-          className={classes.field}
-          label="Code"
-          value={code}
-          onChange={e => setCode(e.target.value)}
-          onBlur={handleUpdateProduct}
-        />
-        <TextField
-          id="product-name"
-          className={classes.field}
-          label="Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          onBlur={handleUpdateProduct}
-        />
-      </div>
-      <IconButton color="primary" onClick={() => dispatch(deleteProduct(product.code))}>
+      <Button className={classes.button} color="secondary" variant={'contained'} onClick={() => dispatch(deleteProduct(product.code))}>
         <DeleteIcon />
-      </IconButton>
+        Delete
+      </Button>
+      <TextField id="product-code" label="Code" value={code} onChange={e => setCode(e.target.value)} onBlur={handleUpdateProduct} />
+      <TextField id="product-name" label="Name" value={name} onChange={e => setName(e.target.value)} onBlur={handleUpdateProduct} />
     </div>
   )
 }
