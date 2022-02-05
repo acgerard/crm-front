@@ -1,11 +1,8 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { useMatch } from 'react-router'
 import { useAppSelector } from '../../store'
 import { getProductByCode } from '../../selectors/product-selectors'
 import { ProductForm } from '../product/product-form'
-
-const useStyles = makeStyles(theme => ({}))
 
 export function SideBar() {
   return (

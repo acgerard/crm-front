@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../../actions/product-actions'
-import { getNbProducts, getProducts, getProductsError, getProductsStatus } from '../../selectors/product-selectors'
+import { getNbProducts, getProductsError, getProductsStatus } from '../../selectors/product-selectors'
 import { STATUS } from '../../reducer/common'
 import { FlashMessage } from '../common/flash-message'
 import Toolbar from '@material-ui/core/Toolbar'
