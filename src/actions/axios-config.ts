@@ -7,6 +7,5 @@ export const http = axios.create({
     'Content-type': 'application/json',
     Accept: 'application/json',
     Prefer: 'return=representation',
-    Authorization: 'Basic YWRtaW5AZHRjZi5jb206Y2hhbmdlaXQ=',
   },
 })
