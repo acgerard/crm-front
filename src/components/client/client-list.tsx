@@ -118,14 +118,13 @@ export function ClientList({
   )
 }
 
-function descendingComparator(a: any, b: any, orderBy: string) {
-  const properties = orderBy.split('.')
-  let valueA = a
-  let valueB = b
-  properties.forEach(prop => {
-    valueA = valueA[prop]
-    valueB = valueB[prop]
-  })
+function getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
+  return o[propertyName] // o[propertyName] is of type T[K]
+}
+
+function descendingComparator<T>(a: T, b: T, orderBy: string) {
+  const valueA = getProperty(a, orderBy as keyof T)
+  const valueB = getProperty(b, orderBy as keyof T)
   if (valueB < valueA) {
     return -1
   }
@@ -135,18 +134,13 @@ function descendingComparator(a: any, b: any, orderBy: string) {
   return 0
 }
 
-function getComparator(order: SortDirection, orderBy: string) {
-  return order === 'desc'
-    ? (a: any, b: any) => descendingComparator(a, b, orderBy)
-    : (a: any, b: any) => -descendingComparator(a, b, orderBy)
+function getComparator<T>(order: SortDirection, orderBy: string): (a: T, b: T) => number {
+  return order === 'desc' ? (a: T, b: T) => descendingComparator(a, b, orderBy) : (a: T, b: T) => -descendingComparator(a, b, orderBy)
 }
 
-function stableSort(array: any[], comparator: (a: any, b: any) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index])
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0])
-    if (order !== 0) return order
-    return a[1] - b[1]
-  })
-  return stabilizedThis.map(el => el[0])
+function stableSort<T>(arr: T[], compare: (a: T, b: T) => number) {
+  return arr
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => compare(a.item, b.item) || a.index - b.index)
+    .map(({ item }) => item)
 }

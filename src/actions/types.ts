@@ -50,7 +50,7 @@ export type Product = {
 export type Spanco = {
   productCode: string
   promo: string
-  configuration?: any
+  configuration?: string // TODO define SPanco configuration
   offers: Offer[]
 }
 

@@ -9,7 +9,7 @@ export function ClientDrawer() {
   const dispatch = useDispatch()
   const open = useSelector(isClientDrawerOpen)
 
-  const handleClose = (event: any) => {
+  const handleClose = (event: { type?: string; key?: string }) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }

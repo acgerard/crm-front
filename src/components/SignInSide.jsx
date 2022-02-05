@@ -47,6 +47,10 @@ export function SignInSide() {
   const [password, setPassword] = useState()
   const history = useHistory()
 
+  const handleSignIn = () => {
+    signIn(email, password).then(() => history.push('/clients'))
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -84,13 +88,7 @@ export function SignInSide() {
               autoComplete="current-password"
               onChange={e => setPassword(e.target.value)}
             />
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => signIn(email, password, history)}
-            >
+            <Button fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleSignIn}>
               Sign In
             </Button>
           </div>

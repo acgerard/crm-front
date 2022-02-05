@@ -16,7 +16,7 @@ import { AddressForm } from './address-form'
 import { ContactForm } from './contact-form'
 import { CrmInfoForm } from './crmInfo-form'
 import './client-form.css'
-import { Address, Client, ClientData, ClientTitle, ContactData, DTCFData } from '../../actions/types'
+import { Address, Client, ClientData, ContactData, DTCFData } from '../../actions/types'
 
 export function ConnectedClientForm() {
   const client = useSelector(getSelectedClient)
