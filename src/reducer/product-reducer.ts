@@ -4,7 +4,7 @@ import { createProduct, deleteProduct, fetchProducts, updateProduct } from '../a
 import { Product } from '../actions/types'
 
 export const productsAdapter = createEntityAdapter<Product>({
-  selectId: product => product.code,
+  selectId: product => product.id,
 })
 
 const initialState = productsAdapter.getInitialState({

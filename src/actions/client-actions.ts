@@ -7,12 +7,12 @@ export const fetchClients = createAsyncThunk('clients/fetchClients', async (): P
 })
 
 export const createClient = createAsyncThunk('clients/createClient', async (client: ClientData): Promise<Client> => {
-  const response = await http.post('/clients', { ...client, active: true })
+  const response = await http.post('/clients', client)
   return response.data
 })
 
 export const updateClient = createAsyncThunk('clients/updateClient', async (client: Client): Promise<Client> => {
-  const response = await http.put(`/clients/${client.id}`, client)
+  const response = await http.put(`/clients/${client.id}`, client.data)
   return response.data
 })
 

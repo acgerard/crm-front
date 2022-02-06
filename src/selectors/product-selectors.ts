@@ -4,10 +4,10 @@ import { RootState } from '../store'
 const getProductState = (state: RootState) => state.product
 export const {
   selectAll: getProducts,
-  selectById: getProductByCode,
-  selectEntities: getProductsByCode,
+  selectById: getProductById,
+  selectEntities: getProductsById,
   selectTotal: getNbProducts,
-  selectIds: getProductCodes,
+  selectIds: getProductIds,
 } = productsAdapter.getSelectors(getProductState)
 
 export function getProductsStatus(state: RootState) {

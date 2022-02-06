@@ -1,8 +1,8 @@
 import React from 'react'
 import { useMatch } from 'react-router'
 import { useAppSelector } from '../../store'
-import { getProductByCode } from '../../selectors/product-selectors'
-import { ProductForm } from '../product/product-form'
+import { getProductById } from '../../selectors/product-selectors'
+import { ProductForm } from '../product/ProductForm'
 
 export function SideBar() {
   return (
@@ -14,8 +14,7 @@ export function SideBar() {
 
 export function ProductSideBar() {
   const matchProduct = useMatch('/products/:productCode')
-  const product = useAppSelector(state => getProductByCode(state, matchProduct?.params.productCode || ''))
-  console.log(matchProduct, product)
+  const product = useAppSelector(state => getProductById(state, matchProduct?.params.productCode || ''))
 
   return product ? <ProductForm product={product} /> : null
 }

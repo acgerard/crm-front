@@ -5,19 +5,21 @@ import TableCell, { SortDirection } from '@material-ui/core/TableCell'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { getComparator, stableSort } from '../../helpers/tableHelper'
 import { useAppSelector } from '../../store'
-import { getProductById, getProducts } from '../../selectors/product-selectors'
+import { getProductById } from '../../selectors/product-selectors'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Product } from '../../actions/types'
+import { Spanco } from '../../actions/types'
+import { getSpancoById, getSpancos } from '../../selectors/spanco-selectors'
 
 const headColumns = [
-  { dataKey: 'code', label: 'Code' },
-  { dataKey: 'name', label: 'Name' },
+  { dataKey: 'productId', label: 'Product' },
+  { dataKey: 'promo', label: 'Promo' },
+  { dataKey: 'nbOffers', label: 'Number offers' },
 ]
 
-export function ProductTable() {
+export function SpancoTable() {
   const params = useParams()
-  const products = useSelector(getProducts)
+  const spancos = useSelector(getSpancos)
   const [orderBy, setOrderBy] = useState(headColumns[0].dataKey)
   const [order, setOrder] = useState<SortDirection>('asc')
 
@@ -48,8 +50,8 @@ export function ProductTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {stableSort(products, getComparator(order, orderBy)).map((product: Product) => (
-            <ProductLine key={product.id} id={product.id} selected={product.id.toString() === params['*']} />
+          {stableSort(spancos, getComparator(order, orderBy)).map((spanco: Spanco) => (
+            <SpancoLine key={spanco.id} id={spanco.id} selected={spanco.id.toString() === params['spancoId']} />
           ))}
         </TableBody>
       </Table>
@@ -57,20 +59,22 @@ export function ProductTable() {
   )
 }
 
-export function ProductLine(props: { id: number; selected: boolean }) {
+export function SpancoLine(props: { id: number; selected: boolean }) {
   const navigate = useNavigate()
-  const product = useAppSelector(state => getProductById(state, props.id))
+  const spanco = useAppSelector(state => getSpancoById(state, props.id))
+  const product = useAppSelector(state => getProductById(state, spanco?.productId || -1))
 
   const handleClick = () => {
-    navigate(`/products/${props.id}`)
+    navigate(`/spancos/${props.id}`)
   }
 
-  return product ? (
+  return spanco ? (
     <TableRow key={props.id} hover onClick={handleClick} selected={props.selected}>
       <TableCell component="th" scope="row">
-        {product.data.code}
+        {product?.data.code || spanco.productId}
       </TableCell>
-      <TableCell>{product.data.name}</TableCell>
+      <TableCell>{spanco.data.promo}</TableCell>
+      <TableCell>{spanco.nbOffers}</TableCell>
     </TableRow>
   ) : null
 }

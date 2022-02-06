@@ -22,22 +22,27 @@ const useStyles = makeStyles(theme => ({
 export function ProductForm({ product }: { product: Product }) {
   const classes = useStyles()
   const dispatch = useAppDispatch()
-  const [code, setCode] = useState(product.code)
-  const [name, setName] = useState(product.name)
+  const [code, setCode] = useState(product.data.code)
+  const [name, setName] = useState(product.data.name)
 
   useEffect(() => {
-    setCode(product.code)
-    setName(product.name)
+    setCode(product.data.code)
+    setName(product.data.name)
   }, [product])
 
   const handleUpdateProduct = () => {
-    dispatch(updateProduct({ code, name }))
+    dispatch(updateProduct({ id: product.id, data: { code, name } }))
   }
 
   return (
     <div className={classes.form}>
-      <Button className={classes.button} color="secondary" variant={'contained'} onClick={() => dispatch(deleteProduct(product.code))}>
-        <DeleteIcon />
+      <Button
+        className={classes.button}
+        color="secondary"
+        variant={'contained'}
+        startIcon={<DeleteIcon />}
+        onClick={() => dispatch(deleteProduct(product.id))}
+      >
         Delete
       </Button>
       <TextField id="product-code" label="Code" value={code} onChange={e => setCode(e.target.value)} onBlur={handleUpdateProduct} />

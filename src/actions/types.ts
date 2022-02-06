@@ -43,15 +43,25 @@ export type Address = {
 }
 
 export type Product = {
+  id: number
+  data: ProductData
+}
+
+export type ProductData = {
   code: string
   name: string
 }
 
 export type Spanco = {
-  productCode: string
+  id: number
+  productId: number
+  data: SpancoData
+  nbOffers: number
+}
+
+export type SpancoData = {
   promo: string
   configuration?: SpancoConfiguration
-  offers: Offer[]
 }
 
 export type SpancoConfiguration = {
@@ -59,6 +69,12 @@ export type SpancoConfiguration = {
 }
 
 export type Offer = {
+  id: number
+  spancoId: number
+  data: OfferData
+}
+
+export type OfferData = {
   clientId?: number
   prescriptorId?: number
   progress: number

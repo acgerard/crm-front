@@ -4,55 +4,53 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import { useAppSelector } from '../../store'
-import { getProducts } from '../../selectors/product-selectors'
-import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
-import { createSpanco } from '../../actions/spanco-actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { getClients } from '../../selectors/client-selectors'
+import { createOffer } from '../../actions/spanco-actions'
 
 const useStyles = makeStyles(theme => ({
   container: {
+    minWidth: '300px',
     display: 'grid',
     rowGap: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
 }))
 
-export function SpancoNewDialog(props: { open?: boolean; onClose?: () => void }) {
+export function OfferNewDialog(props: { spancoId: number; open?: boolean; onClose?: () => void }) {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const products = useAppSelector(getProducts)
-  const [productId, setProductId] = useState<number | null>(null)
-  const [promo, setPromo] = useState('')
+  const clients = useSelector(getClients)
+
+  const [clientId, setClientId] = useState<number | null>(null)
 
   const create = () => {
-    if (!!productId) {
-      dispatch(createSpanco({ productId: productId, spanco: { promo: promo } }))
-      setProductId(null)
-      setPromo('')
+    if (!!clientId) {
+      dispatch(createOffer({ spancoId: props.spancoId, data: { clientId: clientId, progress: 0 } }))
     }
   }
 
+  // TODO client picker more usable
   return (
     <ConfirmDialog
-      title={'Create Spanco'}
+      title={'Create Offer'}
       confirmLabel={'Create'}
       open={props.open}
       onClose={props.onClose}
       onConfirm={create}
-      disabled={productId === null || !promo}
+      disabled={clientId === null}
     >
       <div className={classes.container}>
         <FormControl>
-          <InputLabel>Product</InputLabel>
+          <InputLabel>Client</InputLabel>
           <Select
-            value={productId}
+            value={clientId}
             onChange={e => {
               if (typeof e.target.value === 'string') {
-                setProductId(parseInt(e.target.value))
+                setClientId(parseInt(e.target.value))
               } else {
-                setProductId(null)
+                setClientId(null)
               }
             }}
             MenuProps={{
@@ -66,16 +64,14 @@ export function SpancoNewDialog(props: { open?: boolean; onClose?: () => void })
               },
               getContentAnchorEl: null,
             }}
-            required={true}
           >
-            {products.map(product => (
-              <MenuItem key={product.id} value={product.id}>
-                {product.data.name}
+            {clients.map(client => (
+              <MenuItem key={client.id} value={client.id}>
+                {`${client.data.firstName} ${client.data.lastName}`}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
-        <TextField label="Promo" value={promo} required={true} onChange={e => setPromo(e.target.value)} />
       </div>
     </ConfirmDialog>
   )

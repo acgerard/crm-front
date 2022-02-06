@@ -68,7 +68,7 @@ function ClientListPage() {
       complete: function (results) {
         results.data.forEach(line => {
           if (line.firstName && line.lastName && line.emailPro) {
-            dispatch(createClient({ firstName: line.firstName, lastName: line.lastName, emails: { pro: line.email } }))
+            dispatch(createClient({ firstName: line.firstName, lastName: line.lastName, emails: { pro: line.email }, active: true }))
           }
         })
       },
