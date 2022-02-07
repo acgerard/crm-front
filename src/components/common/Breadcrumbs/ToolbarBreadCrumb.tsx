@@ -17,6 +17,7 @@ export function ToolbarBreadCrumb() {
   const classes = useStyles()
   const matchSpancos = useMatch('/spancos/*')
   const matchSpanco = useMatch('/spancos/:id')
+  const matchSpancoOffer = useMatch('/spancos/:id/:offerId')
   const matchClients = useMatch('/clients/*')
   const matchClient = useMatch('/clients/:clientId')
   const matchProducts = useMatch('/products/*')
@@ -29,7 +30,7 @@ export function ToolbarBreadCrumb() {
           Spancos
         </Link>
       )}
-      {matchSpanco && <SpancoBreadcrumb id={matchSpanco?.params.id} />}
+      {(matchSpanco || matchSpancoOffer) && <SpancoBreadcrumb id={matchSpanco?.params.id || matchSpancoOffer?.params.id} />}
       {matchClients && (
         <Link component={RouterLink} to={'/clients'} underline={'none'} color={'inherit'}>
           Clients

@@ -1,57 +1,54 @@
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
 import Paper from '@material-ui/core/Paper'
-import { Table, TableBody, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import TableCell, { SortDirection } from '@material-ui/core/TableCell'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
-import { getComparator, stableSort } from '../../helpers/tableHelper'
+import { Table, TableBody, TableContainer, TableRow } from '@material-ui/core'
+import TableCell from '@material-ui/core/TableCell'
+import { stableSort } from '../../helpers/tableHelper'
 import { useAppSelector } from '../../store'
-import { getProductById } from '../../selectors/product-selectors'
-import { useNavigate, useParams } from 'react-router-dom'
+import { getProductsById } from '../../selectors/product-selectors'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Spanco } from '../../actions/types'
-import { getSpancoById, getSpancos } from '../../selectors/spanco-selectors'
+import { getSpancos } from '../../selectors/spanco-selectors'
+import { SortableTableHeader } from '../common/table/SortableTableHeader'
+import { useParams } from 'react-router'
+import { useOrderBy } from '../../hooks/useOrderBy'
 
 const headColumns = [
-  { dataKey: 'productId', label: 'Product' },
+  { dataKey: 'product', label: 'Product' },
   { dataKey: 'promo', label: 'Promo' },
   { dataKey: 'nbOffers', label: 'Number offers' },
 ]
 
+type SpancoElt = {
+  id: number
+  product: string
+  promo: string
+  nbOffers: number
+}
+
 export function SpancoTable() {
   const params = useParams()
   const spancos = useSelector(getSpancos)
-  const [orderBy, setOrderBy] = useState(headColumns[0].dataKey)
-  const [order, setOrder] = useState<SortDirection>('asc')
+  const products = useAppSelector(getProductsById)
+  const { order, orderBy, setOrder, setOrderBy, comparator } = useOrderBy(headColumns[0].dataKey)
 
-  const handleRequestSort = (property: string) => () => {
-    const isAsc = orderBy === property && order === 'asc'
-    setOrder(isAsc ? 'desc' : 'asc')
-    setOrderBy(property)
-  }
+  const data = useMemo((): SpancoElt[] => {
+    return spancos.map(spanco => {
+      return {
+        id: spanco.id,
+        product: products[spanco.productId]?.data.code || spanco.productId.toString(),
+        promo: spanco.data.promo,
+        nbOffers: spanco.nbOffers,
+      }
+    })
+  }, [spancos, products])
 
   return (
     <TableContainer component={Paper}>
       <Table>
-        <TableHead>
-          <TableRow>
-            {headColumns.map(column => {
-              return (
-                <TableCell sortDirection={orderBy === column.dataKey ? order : false} key={column.dataKey}>
-                  <TableSortLabel
-                    active={orderBy === column.dataKey}
-                    direction={orderBy === column.dataKey ? (!!order ? order : 'asc') : 'asc'}
-                    onClick={handleRequestSort(column.dataKey)}
-                  >
-                    {column.label}
-                  </TableSortLabel>
-                </TableCell>
-              )
-            })}
-          </TableRow>
-        </TableHead>
+        <SortableTableHeader columns={headColumns} order={order} orderBy={orderBy} setOrder={setOrder} setOrderBy={setOrderBy} />
         <TableBody>
-          {stableSort(spancos, getComparator(order, orderBy)).map((spanco: Spanco) => (
-            <SpancoLine key={spanco.id} id={spanco.id} selected={spanco.id.toString() === params['spancoId']} />
+          {stableSort(data, comparator).map((elt: SpancoElt) => (
+            <SpancoLine key={elt.id} selected={elt.id.toString() === params['spancoId']} {...elt} />
           ))}
         </TableBody>
       </Table>
@@ -59,22 +56,20 @@ export function SpancoTable() {
   )
 }
 
-export function SpancoLine(props: { id: number; selected: boolean }) {
+export function SpancoLine(props: { selected?: boolean } & SpancoElt) {
   const navigate = useNavigate()
-  const spanco = useAppSelector(state => getSpancoById(state, props.id))
-  const product = useAppSelector(state => getProductById(state, spanco?.productId || -1))
 
   const handleClick = () => {
     navigate(`/spancos/${props.id}`)
   }
 
-  return spanco ? (
+  return (
     <TableRow key={props.id} hover onClick={handleClick} selected={props.selected}>
       <TableCell component="th" scope="row">
-        {product?.data.code || spanco.productId}
+        {props.product}
       </TableCell>
-      <TableCell>{spanco.data.promo}</TableCell>
-      <TableCell>{spanco.nbOffers}</TableCell>
+      <TableCell>{props.promo}</TableCell>
+      <TableCell>{props.nbOffers}</TableCell>
     </TableRow>
-  ) : null
+  )
 }

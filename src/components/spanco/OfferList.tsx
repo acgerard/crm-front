@@ -7,6 +7,7 @@ import { getOffersError, getOffersStatus } from '../../selectors/spanco-selector
 import { useParams } from 'react-router-dom'
 import { OfferNewDialog } from './OfferNewDialog'
 import { fetchClients } from '../../actions/client-actions'
+import { OfferTable } from './OfferTable'
 
 function OfferList() {
   const dispatch = useDispatch()
@@ -29,7 +30,7 @@ function OfferList() {
 
   return spancoId ? (
     <DefaultList error={error} status={status} dialog={<OfferNewDialog spancoId={spancoId} />}>
-      <div>Under construction</div>
+      <OfferTable />
     </DefaultList>
   ) : null
 }

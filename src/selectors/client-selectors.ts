@@ -3,6 +3,10 @@ import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 import { Client } from '../actions/types'
 
+export function getClientName(client?: Client) {
+  return !!client ? `${client.data.firstName} ${client.data.lastName}` : null
+}
+
 const getClientState = (state: RootState) => state.client
 export const {
   selectAll: getClients,
