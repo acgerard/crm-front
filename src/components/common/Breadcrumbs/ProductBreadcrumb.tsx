@@ -6,5 +6,5 @@ import React from 'react'
 export function ProductBreadcrumb(props: { productId?: string }) {
   const product = useAppSelector(state => getProductById(state, props.productId || ''))
 
-  return product ? <Typography>{product.data.name}</Typography> : null
+  return product ? <Typography variant={'h6'}>{product.data.name}</Typography> : null
 }

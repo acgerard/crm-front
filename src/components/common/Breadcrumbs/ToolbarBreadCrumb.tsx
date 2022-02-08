@@ -26,19 +26,19 @@ export function ToolbarBreadCrumb() {
   return (
     <Breadcrumbs className={classes.breadcrumb}>
       {matchSpancos && (
-        <Link component={RouterLink} to={'/spancos'} underline={'none'} color={'inherit'}>
+        <Link component={RouterLink} variant={'h6'} to={'/spancos'} underline={'none'} color={'inherit'}>
           Spancos
         </Link>
       )}
       {(matchSpanco || matchSpancoOffer) && <SpancoBreadcrumb id={matchSpanco?.params.id || matchSpancoOffer?.params.id} />}
       {matchClients && (
-        <Link component={RouterLink} to={'/clients'} underline={'none'} color={'inherit'}>
+        <Link component={RouterLink} variant={'h6'} to={'/clients'} underline={'none'} color={'inherit'}>
           Clients
         </Link>
       )}
       {matchClient && <ClientBreadcrumb clientId={matchClient?.params.clientId} />}
       {matchProducts && (
-        <Link component={RouterLink} to={'/products'} underline={'none'} color={'inherit'}>
+        <Link component={RouterLink} variant={'h6'} to={'/products'} underline={'none'} color={'inherit'}>
           Products
         </Link>
       )}
