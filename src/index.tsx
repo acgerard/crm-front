@@ -13,7 +13,7 @@ import './style.css'
 const theme = createTheme({
   palette: {
     primary: {
-      main: deepPurple[700],
+      main: deepPurple[600],
     },
     secondary: {
       main: teal[400],

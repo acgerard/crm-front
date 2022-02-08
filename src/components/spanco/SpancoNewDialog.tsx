@@ -28,7 +28,7 @@ export function SpancoNewDialog(props: { open?: boolean; onClose?: () => void })
 
   const create = () => {
     if (!!productId) {
-      dispatch(createSpanco({ productId: productId, spanco: { promo: promo } }))
+      dispatch(createSpanco({ productId: productId, spanco: { promo: promo, configuration: { steps: [] } } }))
       setProductId(null)
       setPromo('')
     }
