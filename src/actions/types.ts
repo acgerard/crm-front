@@ -75,12 +75,12 @@ export type Offer = {
 }
 
 export type OfferData = {
-  clientId?: number
-  prescriptorId?: number
+  clientId?: number | null
+  prescriptorId?: number | null
   progress: number
-  price?: number
+  price?: number | null
   comment?: string
   action?: string
-  probability?: number
+  probability?: number | null
   followedBy?: string
 }
