@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import './address-form.css'
 import Typography from '@material-ui/core/Typography'
-import { Address } from '../../actions/types'
+import { Address } from '../../../actions/types'
 
 export function AddressForm({
   label,

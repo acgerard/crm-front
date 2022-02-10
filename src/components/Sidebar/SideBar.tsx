@@ -5,15 +5,25 @@ import { getProductById } from '../../selectors/product-selectors'
 import { ProductForm } from '../product/ProductForm'
 import { SpancoConfiguration } from '../spanco/SpancoConfiguration'
 import { OfferForm } from '../spanco/OfferForm'
+import { getClientById } from '../../selectors/client-selectors'
+import { ClientForm } from '../client/ClientForm'
 
 export function SideBar() {
   return (
     <>
+      <ClientSideBar />
       <ProductSideBar />
       <SpancoSideBar />
       <OfferSideBar />
     </>
   )
+}
+
+export function ClientSideBar() {
+  const matchClient = useMatch('/clients/:clientId')
+  const client = useAppSelector(state => getClientById(state, matchClient?.params.clientId || ''))
+
+  return client ? <ClientForm client={client} /> : null
 }
 
 export function ProductSideBar() {

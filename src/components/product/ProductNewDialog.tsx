@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export function ProductNewDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function ProductNewDialog({ open, onClose }: { open?: boolean; onClose?: () => void }) {
   const classes = useStyles()
   const dispatch = useAppDispatch()
   const [code, setCode] = useState('')

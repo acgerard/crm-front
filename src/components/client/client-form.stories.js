@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { ClientForm } from './client-form'
-import { AddressWithValues } from './address-form.stories'
+import { ClientForm } from './ClientForm'
+import { AddressWithValues } from './AddressForm/address-form.stories'
 
 export default {
   title: 'Client/Client Form',

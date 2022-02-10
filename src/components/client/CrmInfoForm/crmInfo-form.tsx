@@ -4,7 +4,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import React, { useEffect, useState } from 'react'
 import './crmInfo-form.css'
-import { DTCFData } from '../../actions/types'
+import { DTCFData } from '../../../actions/types'
 
 // TODO add DTCF type
 export function CrmInfoForm({

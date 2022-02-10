@@ -1,28 +1,59 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getSelectedClient } from '../../selectors/client-selectors'
+import { useDispatch } from 'react-redux'
 import { deleteClient, updateClient } from '../../actions/client-actions'
 import Typography from '@material-ui/core/Typography'
-import Toolbar from '@material-ui/core/Toolbar'
 import DeleteIcon from '@material-ui/icons/Delete'
-import IconButton from '@material-ui/core/IconButton'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
-import { AddressForm } from './address-form'
-import { ContactForm } from './contact-form'
-import { CrmInfoForm } from './crmInfo-form'
-import './client-form.css'
+import { AddressForm } from './AddressForm/address-form'
+import { ContactForm } from './ContactForm/contact-form'
+import { CrmInfoForm } from './CrmInfoForm/crmInfo-form'
 import { Address, Client, ClientData, ContactData, DTCFData } from '../../actions/types'
+import { makeStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
 
-export function ConnectedClientForm() {
-  const client = useSelector(getSelectedClient)
+const useStyles = makeStyles(theme => ({
+  actions: {
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridTemplateColumns: '1fr auto',
+    marginBottom: theme.spacing(2),
+  },
+  button: {
+    color: theme.palette.error.main,
+    // backgroundColor: theme.palette.error.dark,
+  },
+  title: {
+    marginBottom: theme.spacing(4),
+  },
+
+  details: {
+    marginBottom: '1rem',
+  },
+
+  addresses: {
+    flexDirection: 'column',
+    marginBottom: '1rem',
+  },
+}))
+
+export function ClientForm({ client }: { client: Client }) {
+  const classes = useStyles()
+  const [updatedActive, setActive] = useState(client.data.active || false)
   const dispatch = useDispatch()
 
-  const update = (clientData: ClientData) => {
+  useEffect(
+    function () {
+      setActive(client.data.active || false)
+    },
+    [client],
+  )
+
+  const onUpdate = (clientData: ClientData) => {
     if (client) {
       dispatch(
         updateClient({
@@ -33,33 +64,12 @@ export function ConnectedClientForm() {
     }
   }
 
-  const handleDelete = () => {
+  const onDelete = () => {
     // TODO add confirmation dialog
     if (client) {
       dispatch(deleteClient(client.id))
     }
   }
-
-  return client ? <ClientForm client={client} onDelete={handleDelete} onUpdate={update} /> : null
-}
-
-export function ClientForm({
-  client,
-  onUpdate,
-  onDelete,
-}: {
-  client: Client
-  onUpdate: (client: ClientData) => void
-  onDelete: () => void
-}) {
-  const [updatedActive, setActive] = useState(client.data.active || false)
-
-  useEffect(
-    function () {
-      setActive(client.data.active || false)
-    },
-    [client],
-  )
 
   const update = (contactInfo: ContactData, crmInfo: DTCFData, proAddress?: Address, persoAddress?: Address) => {
     onUpdate({
@@ -90,32 +100,34 @@ export function ClientForm({
   }
 
   return (
-    <div className="client-form">
-      <Toolbar>
-        <Typography variant="h3" gutterBottom>
-          {`${client.data.firstName} ${client.data.lastName}`}
-        </Typography>
-        <IconButton color="primary" onClick={onDelete}>
+    <div>
+      <Typography variant="h4" className={classes.title}>{`${client.data.firstName} ${client.data.lastName}`}</Typography>
+
+      <div className={classes.actions}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="active"
+              checked={updatedActive}
+              onChange={e => setActive(e.target.checked)}
+              onBlur={() => update(getContactInfo(), getCrmInfo(), client.data.addresses?.pro, client.data.addresses?.perso)}
+            />
+          }
+          label="Active"
+        />
+        <IconButton className={classes.button} onClick={onDelete}>
           <DeleteIcon />
         </IconButton>
-      </Toolbar>
+        {/*<Button className={classes.button} variant={'contained'} startIcon={<DeleteIcon />} onClick={onDelete}>*/}
+        {/* Delete */}
+        {/*</Button>*/}
+      </div>
 
-      <FormControlLabel
-        control={
-          <Checkbox
-            name="active"
-            checked={updatedActive}
-            onChange={e => setActive(e.target.checked)}
-            onBlur={() => update(getContactInfo(), getCrmInfo(), client.data.addresses?.pro, client.data.addresses?.perso)}
-          />
-        }
-        label="Active"
-      />
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography variant="h5">Contact</Typography>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">Contact</Typography>
         </AccordionSummary>
-        <AccordionDetails className="client-form-details">
+        <AccordionDetails className={classes.details}>
           <ContactForm
             title={client.data.title}
             firstName={client.data.firstName}
@@ -128,10 +140,10 @@ export function ClientForm({
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography variant="h5">Addresses</Typography>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">Addresses</Typography>
         </AccordionSummary>
-        <AccordionDetails className="client-form-details client-form-addresses">
+        <AccordionDetails className={classes.addresses}>
           <AddressForm
             label="Professional address"
             description={client.data.addresses?.pro?.description}
@@ -151,10 +163,10 @@ export function ClientForm({
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography variant="h5">DTCF Informations</Typography>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">DTCF Informations</Typography>
         </AccordionSummary>
-        <AccordionDetails className="client-form-details">
+        <AccordionDetails className={classes.details}>
           <CrmInfoForm
             contact={client.data.contact}
             newsletter={client.data.newsletter}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ClientList } from './client-list'
+import ClientList from './ClientList'
 
 export default {
   title: 'Client/Client List',

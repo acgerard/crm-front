@@ -1,17 +1,17 @@
 import React from 'react'
 
-import { ClientNewForm } from './client-new-form'
+import { ClientNewDialog } from './ClientNewDialog'
 
 export default {
   title: 'Client/New Client Form',
-  component: ClientNewForm,
+  component: ClientNewDialog,
   argTypes: {
     onClose: { action: 'onClose' },
     handleCreate: { action: 'handleCreate' },
   },
 }
 
-const Template = args => <ClientNewForm {...args} />
+const Template = args => <ClientNewDialog {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
