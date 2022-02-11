@@ -62,11 +62,11 @@ export function ContactForm({
 
   return (
     <div className="contact-div">
-      <FormControl>
+      <FormControl variant="outlined">
         <InputLabel id="client-title-label">Title</InputLabel>
         <Select
           labelId="client-title-label"
-          id="client-title-select"
+          label="Title"
           value={updatedTitle}
           onChange={e => {
             if (typeof e.target.value === 'string') {
@@ -83,6 +83,7 @@ export function ContactForm({
       </FormControl>
       <div />
       <TextField
+        variant="outlined"
         id="client-name-first"
         label="First Name"
         value={updatedFirstName}
@@ -90,15 +91,24 @@ export function ContactForm({
         onBlur={handleOnBlur}
       />
       <TextField
+        variant="outlined"
         id="client-name-last"
         label="Last Name"
         value={updatedLastName}
         onChange={e => setLastName(e.target.value)}
         onBlur={handleOnBlur}
       />
-      <TextField id="client-phone" label="Phone" value={updatedPhone} onChange={e => setPhone(e.target.value)} onBlur={handleOnBlur} />
+      <TextField
+        id="client-phone"
+        variant="outlined"
+        label="Phone"
+        value={updatedPhone}
+        onChange={e => setPhone(e.target.value)}
+        onBlur={handleOnBlur}
+      />
       <TextField
         id="client-email-perso"
+        variant="outlined"
         label="Personal Email"
         value={updatedPersoEmail}
         onChange={e => setPersoEmail(e.target.value)}
@@ -106,6 +116,7 @@ export function ContactForm({
       />
       <TextField
         id="client-company"
+        variant="outlined"
         label="Company"
         value={updatedCompany}
         onChange={e => setCompany(e.target.value)}
@@ -113,6 +124,7 @@ export function ContactForm({
       />
       <TextField
         id="client-email-pro"
+        variant="outlined"
         label="Professional Email"
         value={updatedProEmail}
         onChange={e => setProEmail(e.target.value)}

@@ -6,17 +6,17 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-import { deepPurple, teal } from '@material-ui/core/colors'
+import { pink, teal } from '@material-ui/core/colors'
 
 import './style.css'
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: deepPurple[600],
+      main: teal[600],
     },
     secondary: {
-      main: teal[400],
+      main: pink['A400'],
     },
   },
 })

@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   button: {
-    color: theme.palette.error.main,
+    color: theme.palette.secondary.main,
     // backgroundColor: theme.palette.error.dark,
   },
   title: {

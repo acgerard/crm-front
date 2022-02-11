@@ -42,7 +42,7 @@ export function DefaultList(
         {props.status !== STATUS.INIT && props.children}
       </div>
       {props.dialog && React.cloneElement(props.dialog, { open: openDialog, onClose: handleClose })}
-      <Fab className={classes.fab} color="secondary" aria-label="add" onClick={handleOpen}>
+      <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOpen}>
         <AddIcon />
       </Fab>
     </>

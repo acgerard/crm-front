@@ -73,7 +73,7 @@ function ClientList() {
           <div>
             <input accept=".csv" className={classes.input} id="upload-clients" type="file" onChange={handleFile} />
             <label htmlFor="upload-clients">
-              <IconButton color="secondary" component="span">
+              <IconButton color="primary" component="span">
                 <CloudUploadIcon />
               </IconButton>
             </label>

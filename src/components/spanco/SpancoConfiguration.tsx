@@ -5,7 +5,7 @@ import { getSpancoById } from '../../selectors/spanco-selectors'
 import IconButton from '@material-ui/core/IconButton'
 import { updateSpanco } from '../../actions/spanco-actions'
 import TextField from '@material-ui/core/TextField'
-import { Add, DeleteOutlined } from '@material-ui/icons'
+import { Add, DeleteOutlineRounded } from '@material-ui/icons'
 import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
@@ -71,7 +71,7 @@ export function SpancoConfiguration(props: { spancoId: number }) {
 
   return (
     <Box className={classes.config}>
-      <Button className={classes.addButton} color="secondary" variant={'contained'} onClick={addStep} startIcon={<Add />}>
+      <Button className={classes.addButton} color="primary" variant={'contained'} onClick={addStep} startIcon={<Add />}>
         Add step
       </Button>
       <Box className={classes.items}>
@@ -79,7 +79,7 @@ export function SpancoConfiguration(props: { spancoId: number }) {
           <div key={index} className={classes.item}>
             <TextField value={step} onChange={e => updateStep(index, e.target.value)} onBlur={() => updateSteps(steps)} />
             <IconButton color="secondary" onClick={() => deleteStep(index)}>
-              <DeleteOutlined />
+              <DeleteOutlineRounded />
             </IconButton>
           </div>
         ))}
