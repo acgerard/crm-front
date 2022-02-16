@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react'
-import { AppBar, Menu, MenuItem } from '@material-ui/core'
+import { AppBar, Link, Menu, MenuItem } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
 import { Menu as MenuIcon } from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { ToolbarBreadCrumb } from '../Breadcrumbs/ToolbarBreadCrumb'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom'
 import { logout } from '../../../actions/signIn-actions'
 import { SideBar } from '../../Sidebar/SideBar'
 
@@ -67,19 +67,6 @@ export function DefaultLayout(): ReactElement {
     navigate('/login')
   }
 
-  const onClients = () => {
-    navigate('/clients')
-    handleClose()
-  }
-  const onProducts = () => {
-    navigate('/products')
-    handleClose()
-  }
-  const onSpancos = () => {
-    navigate('/spancos')
-    handleClose()
-  }
-
   return (
     <div className={classes.layout}>
       <AppBar>
@@ -98,9 +85,21 @@ export function DefaultLayout(): ReactElement {
               left: 0,
             }}
           >
-            <MenuItem onClick={onClients}>Clients</MenuItem>
-            <MenuItem onClick={onSpancos}>Spancos</MenuItem>
-            <MenuItem onClick={onProducts}>Produits</MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link component={RouterLink} to={'/clients'} underline={'none'} color={'inherit'}>
+                Clients
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link component={RouterLink} to={'/spancos'} underline={'none'} color={'inherit'}>
+                Spancos
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link component={RouterLink} to={'/products'} underline={'none'} color={'inherit'}>
+                Products
+              </Link>
+            </MenuItem>
           </Menu>
           <ToolbarBreadCrumb />
           <Button color="inherit" onClick={onLogout}>
