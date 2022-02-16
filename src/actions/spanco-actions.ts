@@ -39,4 +39,5 @@ export const updateOffer = createAsyncThunk('offer/update', async (offer: Offer)
 
 export const deleteOffer = createAsyncThunk('offer/delete', async ({ spancoId, id }: { spancoId: number; id: number }) => {
   await http.delete(`/spancos/${spancoId}/offers/${id}`)
+  return id
 })

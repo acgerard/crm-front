@@ -1,6 +1,15 @@
 import { createEntityAdapter, createSlice, SerializedError } from '@reduxjs/toolkit'
 import { STATUS } from './common'
-import { createOffer, createSpanco, deleteSpanco, fetchOffers, fetchSpancos, updateOffer, updateSpanco } from '../actions/spanco-actions'
+import {
+  createOffer,
+  createSpanco,
+  deleteOffer,
+  deleteSpanco,
+  fetchOffers,
+  fetchSpancos,
+  updateOffer,
+  updateSpanco,
+} from '../actions/spanco-actions'
 import { Offer, Spanco } from '../actions/types'
 
 export const spancoAdapter = createEntityAdapter<Spanco>({
@@ -74,6 +83,13 @@ const spancoSlice = createSlice({
       offerAdapter.upsertOne(state.offers, action.payload)
     })
     builder.addCase(updateOffer.rejected, (state, action) => {
+      state.offers.status = STATUS.ERROR
+      state.offers.error = action.error
+    })
+    builder.addCase(deleteOffer.fulfilled, (state, action) => {
+      offerAdapter.removeOne(state.offers, action.payload)
+    })
+    builder.addCase(deleteOffer.rejected, (state, action) => {
       state.offers.status = STATUS.ERROR
       state.offers.error = action.error
     })
