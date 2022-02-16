@@ -4,9 +4,8 @@ import { getOfferById } from '../../selectors/spanco-selectors'
 import { deleteOffer, updateOffer } from '../../actions/spanco-actions'
 import DeleteIcon from '@material-ui/icons/Delete'
 import TextField from '@material-ui/core/TextField'
-import { Box, makeStyles } from '@material-ui/core'
+import { Box, FormControlLabel, makeStyles, Switch } from '@material-ui/core'
 import { ClientPicker } from './ClientPicker'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import { ConfirmDialog } from '../common/dialog/ConfirmDialog'
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   form: {
     width: '100%',
     display: 'grid',
-    gridTemplateRows: 'repeat(9, auto) 1fr',
+    gridTemplateRows: 'repeat(8, auto) 1fr',
     rowGap: theme.spacing(2),
   },
   button: {
@@ -33,6 +32,12 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridAutoFlow: 'column',
     gridTemplateColumns: '1fr auto',
+  },
+  twoCol: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridAutoFlow: 'column',
+    columnGap: theme.spacing(2),
   },
 }))
 
@@ -49,6 +54,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
   const [followedBy, setFollowedBy] = useState(offer?.data.followedBy)
   const [probability, setProbability] = useState(offer?.data.probability || '')
   const [progress, setProgress] = useState(offer?.data.progress || 0)
+  const [pro, setPro] = useState(offer?.data.pro || false)
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
@@ -60,13 +66,14 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
     setProgress(offer?.data.progress || 0)
     setProbability(offer?.data.probability || '')
     setFollowedBy(offer?.data.followedBy || '')
+    setPro(offer?.data.pro || false)
   }, [offer])
 
   const handleUpdateOffer = () => {
     if (!!offer) {
       const newOffer = {
         ...offer,
-        data: { ...offer.data, comment, action, followedBy, clientId, prescriptorId, progress: progress || 0 },
+        data: { ...offer.data, comment, action, followedBy, clientId, prescriptorId, progress: progress || 0, pro: pro },
       }
       if (probability && probability !== '') {
         newOffer.data.probability = probability as number
@@ -127,37 +134,49 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
         setClientId={setPrescriptorId}
         onBlur={handleUpdateOffer}
       />
-      <TextField label="Suivi par" value={followedBy} onChange={e => setFollowedBy(e.target.value)} onBlur={handleUpdateOffer} />
-      <TextField
-        label="Prix"
-        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-        value={price}
-        onChange={e => handleNumber(e.target.value, setPrice)}
-        onBlur={handleUpdateOffer}
-      />
-      <TextField
-        label="Probabilité (%)"
-        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-        value={probability}
-        onChange={e => handleNumber(e.target.value, setProbability)}
-        onBlur={handleUpdateOffer}
-      />
       <ProgressDropDown spancoId={props.spancoId} value={progress} setProgress={setProgress} onBlur={handleUpdateOffer} />
+      <div className={classes.twoCol}>
+        <TextField label="Suivi par" value={followedBy} onChange={e => setFollowedBy(e.target.value)} onBlur={handleUpdateOffer} />
+        <FormControlLabel
+          control={<Switch color="primary" checked={!!pro} onChange={e => setPro(e.target.checked)} onBlur={handleUpdateOffer} />}
+          label={pro ? 'Pro' : 'Perso'}
+        />
+      </div>
+      <div className={classes.twoCol}>
+        <TextField
+          label="Prix"
+          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+          value={price}
+          onChange={e => handleNumber(e.target.value, setPrice)}
+          onBlur={handleUpdateOffer}
+        />
+        <TextField
+          label="Probabilité (%)"
+          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+          value={probability}
+          onChange={e => handleNumber(e.target.value, setProbability)}
+          onBlur={handleUpdateOffer}
+        />
+      </div>
 
-      <TextareaAutosize
-        aria-label="minimum height"
+      <TextField
         minRows={5}
-        placeholder="Action"
+        maxRows={8}
+        label="Action"
+        multiline
         value={action}
         onChange={e => setAction(e.target.value)}
         onBlur={handleUpdateOffer}
+        variant="outlined"
       />
-      <TextareaAutosize
-        aria-label="minimum height"
-        minRows={5}
-        placeholder="Commentaire"
+      <TextField
+        label="Commentaire"
+        multiline
+        minRows={4}
+        maxRows={8}
         value={comment}
         onChange={e => setComment(e.target.value)}
+        variant="outlined"
         onBlur={handleUpdateOffer}
       />
       <ConfirmDialog

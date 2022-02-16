@@ -83,4 +83,5 @@ export type OfferData = {
   action?: string
   probability?: number | null
   followedBy?: string
+  pro?: boolean
 }
