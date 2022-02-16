@@ -36,8 +36,8 @@ export function SpancoNewDialog(props: { open?: boolean; onClose?: () => void })
 
   return (
     <ConfirmDialog
-      title={'Create Spanco'}
-      confirmLabel={'Create'}
+      title={'Créer Spanco'}
+      confirmLabel={'Créer'}
       open={props.open}
       onClose={props.onClose}
       onConfirm={create}
@@ -45,7 +45,7 @@ export function SpancoNewDialog(props: { open?: boolean; onClose?: () => void })
     >
       <div className={classes.container}>
         <FormControl>
-          <InputLabel>Product</InputLabel>
+          <InputLabel>Produit</InputLabel>
           <Select
             value={productId}
             onChange={e => {

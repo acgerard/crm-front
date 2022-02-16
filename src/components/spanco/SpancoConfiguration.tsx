@@ -72,7 +72,7 @@ export function SpancoConfiguration(props: { spancoId: number }) {
   return (
     <Box className={classes.config}>
       <Button className={classes.addButton} color="primary" variant={'contained'} onClick={addStep} startIcon={<Add />}>
-        Add step
+        Ajouter Etape
       </Button>
       <Box className={classes.items}>
         {steps.map((step, index) => (

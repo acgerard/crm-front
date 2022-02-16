@@ -42,7 +42,7 @@ export function CrmInfoForm({
     <div className="crmInfo-div">
       <TextField
         id="client-contact"
-        label="DTCF Contact"
+        label="Contact DTCF"
         value={updatedContact}
         onChange={e => setContact(e.target.value)}
         onBlur={handleOnBlur}
@@ -56,7 +56,7 @@ export function CrmInfoForm({
       <TextareaAutosize
         aria-label="minimum height"
         rowsMin={5}
-        placeholder="Comment"
+        placeholder="Commentaire"
         className="crmInfo-comment"
         value={updatedComment}
         onChange={e => setComment(e.target.value)}

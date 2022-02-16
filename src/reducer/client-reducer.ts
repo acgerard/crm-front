@@ -37,6 +37,7 @@ const clientsSlice = createSlice({
     })
     builder.addCase(fetchClients.fulfilled, (state, action) => {
       state.status = STATUS.OK
+      state.error = null
       clientsAdapter.setAll(state, action.payload)
     })
     builder.addCase(fetchClients.rejected, (state, action) => {
@@ -45,6 +46,7 @@ const clientsSlice = createSlice({
     })
     builder.addCase(createClient.fulfilled, (state, action) => {
       clientsAdapter.addOne(state, action)
+      state.error = null
     })
     builder.addCase(createClient.rejected, (state, action) => {
       state.status = STATUS.ERROR

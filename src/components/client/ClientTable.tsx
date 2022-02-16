@@ -14,13 +14,13 @@ import { useParams } from 'react-router'
 import { Client } from '../../actions/types'
 
 const headColumns = [
-  { dataKey: 'firstName', label: 'First Name', width: 200 },
-  { dataKey: 'lastName', label: 'Last Name', width: 200 },
-  { dataKey: 'active', label: 'Active', width: 100, boolean: true },
-  { dataKey: 'company', label: 'Company', width: 200 },
-  { dataKey: 'contact', label: 'DTCF Contact', width: 200 },
-  { dataKey: 'country', label: 'Country', width: 150 },
-  { dataKey: 'comment', label: 'Comment', width: 300 },
+  { dataKey: 'firstName', label: 'Prénom', width: 200 },
+  { dataKey: 'lastName', label: 'Nom', width: 200 },
+  { dataKey: 'active', label: 'Actif', width: 100, boolean: true },
+  { dataKey: 'company', label: 'Entreprise', width: 200 },
+  { dataKey: 'contact', label: 'Contact DTCF', width: 200 },
+  { dataKey: 'country', label: 'Pays', width: 150 },
+  { dataKey: 'comment', label: 'Commentaire', width: 300 },
 ]
 
 const filterClients = (clients: Client[], filter?: string) => {

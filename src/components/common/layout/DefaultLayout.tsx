@@ -98,9 +98,9 @@ export function DefaultLayout(): ReactElement {
               left: 0,
             }}
           >
-            <MenuItem onClick={onSpancos}>Spancos</MenuItem>
             <MenuItem onClick={onClients}>Clients</MenuItem>
-            <MenuItem onClick={onProducts}>Products</MenuItem>
+            <MenuItem onClick={onSpancos}>Spancos</MenuItem>
+            <MenuItem onClick={onProducts}>Produits</MenuItem>
           </Menu>
           <ToolbarBreadCrumb />
           <Button color="inherit" onClick={onLogout}>

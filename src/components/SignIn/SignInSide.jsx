@@ -70,7 +70,7 @@ export function SignInSide() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Adresse mail"
               name="email"
               autoComplete="email"
               autoFocus
@@ -82,14 +82,14 @@ export function SignInSide() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Mot de passe"
               type="password"
               id="password"
               autoComplete="current-password"
               onChange={e => setPassword(e.target.value)}
             />
             <Button fullWidth variant="contained" color="primary" className={classes.submit} onClick={handleSignIn}>
-              Sign In
+              Se connecter
             </Button>
           </div>
         </div>

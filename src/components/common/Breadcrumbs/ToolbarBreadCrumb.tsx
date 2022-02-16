@@ -39,7 +39,7 @@ export function ToolbarBreadCrumb() {
       {matchClient && <ClientBreadcrumb clientId={matchClient?.params.clientId} />}
       {matchProducts && (
         <Link component={RouterLink} variant={'h6'} to={'/products'} underline={'none'} color={'inherit'}>
-          Products
+          Produits
         </Link>
       )}
       {matchProduct && <ProductBreadcrumb productId={matchProduct?.params.productId} />}

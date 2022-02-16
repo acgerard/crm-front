@@ -28,8 +28,8 @@ export function OfferNewDialog(props: { spancoId: number; open?: boolean; onClos
 
   return (
     <ConfirmDialog
-      title={'Create Offer'}
-      confirmLabel={'Create'}
+      title={'Créer une offre'}
+      confirmLabel={'Créer'}
       open={props.open}
       onClose={props.onClose}
       onConfirm={create}

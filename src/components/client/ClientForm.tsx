@@ -113,7 +113,7 @@ export function ClientForm({ client }: { client: Client }) {
               onBlur={() => update(getContactInfo(), getCrmInfo(), client.data.addresses?.pro, client.data.addresses?.perso)}
             />
           }
-          label="Active"
+          label="Actif"
         />
         <IconButton className={classes.button} onClick={onDelete}>
           <DeleteIcon />
@@ -141,11 +141,11 @@ export function ClientForm({ client }: { client: Client }) {
       </Accordion>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">Addresses</Typography>
+          <Typography variant="h6">Adresses</Typography>
         </AccordionSummary>
         <AccordionDetails className={classes.addresses}>
           <AddressForm
-            label="Professional address"
+            label="Adresse professionnelle"
             description={client.data.addresses?.pro?.description}
             zipCode={client.data.addresses?.pro?.zipCode}
             town={client.data.addresses?.pro?.town}
@@ -153,7 +153,7 @@ export function ClientForm({ client }: { client: Client }) {
             update={address => update(getContactInfo(), getCrmInfo(), address, client.data.addresses?.perso)}
           />
           <AddressForm
-            label="Personal address"
+            label="Adresse personnelle"
             description={client.data.addresses?.perso?.description}
             zipCode={client.data.addresses?.perso?.zipCode}
             town={client.data.addresses?.perso?.town}
@@ -164,7 +164,7 @@ export function ClientForm({ client }: { client: Client }) {
       </Accordion>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">DTCF Informations</Typography>
+          <Typography variant="h6">Informations DTCF</Typography>
         </AccordionSummary>
         <AccordionDetails className={classes.details}>
           <CrmInfoForm

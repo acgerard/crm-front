@@ -83,33 +83,33 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
         startIcon={<DeleteIcon />}
         onClick={() => dispatch(deleteOffer({ spancoId: offer.spancoId, id: offer.id }))}
       >
-        Delete
+        Supprimer
       </Button>
       <ClientPicker clientId={clientId} canUnset={true} setClientId={setClientId} onBlur={handleUpdateOffer} />
       <ClientPicker
-        label="Prescriptor"
+        label="Prescripteur"
         clientId={prescriptorId}
         canUnset={true}
         setClientId={setPrescriptorId}
         onBlur={handleUpdateOffer}
       />
-      <TextField label="Followed by" value={followedBy} onChange={e => setFollowedBy(e.target.value)} onBlur={handleUpdateOffer} />
+      <TextField label="Suivi par" value={followedBy} onChange={e => setFollowedBy(e.target.value)} onBlur={handleUpdateOffer} />
       <TextField
-        label="Price"
+        label="Prix"
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         value={price}
         onChange={e => handleNumber(e.target.value, setPrice)}
         onBlur={handleUpdateOffer}
       />
       <TextField
-        label="Probability"
+        label="Probabilité (%)"
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         value={probability}
         onChange={e => handleNumber(e.target.value, setProbability)}
         onBlur={handleUpdateOffer}
       />
       <TextField
-        label="Progress"
+        label="Progression"
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         value={progress}
         onChange={e => setProgress(parseInt(e.target.value))}
@@ -127,7 +127,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
       <TextareaAutosize
         aria-label="minimum height"
         minRows={5}
-        placeholder="Comment"
+        placeholder="Commentaire"
         value={comment}
         onChange={e => setComment(e.target.value)}
         onBlur={handleUpdateOffer}

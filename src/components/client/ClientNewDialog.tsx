@@ -34,7 +34,7 @@ export function ClientNewDialog({ open, onClose }: { open?: boolean; onClose?: (
   }
 
   return (
-    <ConfirmDialog title={'Create Product'} confirmLabel={'Create'} open={open} onClose={onClose} onConfirm={handleCreateClient}>
+    <ConfirmDialog title={'Créer un client'} confirmLabel={'Créer'} open={open} onClose={onClose} onConfirm={handleCreateClient}>
       <ContactForm
         title={contactInfo.title}
         firstName={contactInfo.firstName}
@@ -51,7 +51,7 @@ export function ClientNewDialog({ open, onClose }: { open?: boolean; onClose?: (
         update={crmInfo => setCrmInfo(crmInfo)}
       />
       <AddressForm
-        label="Professional address"
+        label="Adresse professionnelle"
         description={proAddress.description}
         zipCode={proAddress.zipCode}
         town={proAddress.town}
@@ -59,7 +59,7 @@ export function ClientNewDialog({ open, onClose }: { open?: boolean; onClose?: (
         update={address => setProAddress(address)}
       />
       <AddressForm
-        label="Personal address"
+        label="Adresse personnelle"
         description={persoAddress.description}
         zipCode={persoAddress.zipCode}
         town={persoAddress.town}

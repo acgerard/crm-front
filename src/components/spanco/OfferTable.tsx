@@ -15,8 +15,9 @@ import { useOrderBy } from '../../hooks/useOrderBy'
 const headColumns = [
   { dataKey: 'client', label: 'Client' },
   { dataKey: 'action', label: 'Action' },
-  { dataKey: 'followedBy', label: 'Followed by' },
-  { dataKey: 'progress', label: 'Progress' },
+  { dataKey: 'followedBy', label: 'Suivi par' },
+  { dataKey: 'progress', label: 'Progression' },
+  { dataKey: 'probability', label: 'Probabilité' },
 ]
 
 type OfferElt = {
@@ -26,6 +27,7 @@ type OfferElt = {
   action?: string
   followedBy?: string
   progress: string
+  probability?: number | null
 }
 
 export function OfferTable() {
@@ -43,6 +45,7 @@ export function OfferTable() {
         client: getClientName(clients[offer.data.clientId || offer.data.prescriptorId || 0]) || 'Not found',
         followedBy: offer.data.followedBy,
         progress: offer.data.progress.toString(),
+        probability: offer.data.probability,
       }
     })
   }, [offers, clients])
@@ -76,6 +79,7 @@ export function OfferLine(props: { selected?: boolean } & OfferElt) {
       <TableCell>{props.action}</TableCell>
       <TableCell>{props.followedBy}</TableCell>
       <TableCell>{props.progress}</TableCell>
+      <TableCell>{props.probability}</TableCell>
     </TableRow>
   )
 }

@@ -27,8 +27,8 @@ export function ProductNewDialog({ open, onClose }: { open?: boolean; onClose?: 
 
   return (
     <ConfirmDialog
-      title={'Create Product'}
-      confirmLabel={'Create'}
+      title={'Créer Produit'}
+      confirmLabel={'Créer'}
       open={open}
       onClose={onClose}
       onConfirm={handleCreateProduct}
@@ -36,7 +36,7 @@ export function ProductNewDialog({ open, onClose }: { open?: boolean; onClose?: 
     >
       <div className={classes.container}>
         <TextField label="Code" value={code} required={true} onChange={e => setCode(e.target.value)} />
-        <TextField label="Name" value={name} onChange={e => setName(e.target.value)} />
+        <TextField label="Nom" value={name} onChange={e => setName(e.target.value)} />
       </div>
     </ConfirmDialog>
   )

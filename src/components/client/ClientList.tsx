@@ -69,7 +69,7 @@ function ClientList() {
       dialog={<ClientNewDialog />}
       toolbar={
         <div className={classes.toolbar}>
-          <TextField id="client-search" label="Search" value={filter} onChange={e => dispatch(filterClient(e.target.value))} />
+          <TextField id="client-search" label="Rechercher" value={filter} onChange={e => dispatch(filterClient(e.target.value))} />
           <div>
             <input accept=".csv" className={classes.input} id="upload-clients" type="file" onChange={handleFile} />
             <label htmlFor="upload-clients">

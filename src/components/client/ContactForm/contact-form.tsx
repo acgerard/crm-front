@@ -66,7 +66,7 @@ export function ContactForm({
         <InputLabel id="client-title-label">Title</InputLabel>
         <Select
           labelId="client-title-label"
-          label="Title"
+          label="Titre"
           value={updatedTitle}
           onChange={e => {
             if (typeof e.target.value === 'string') {
@@ -77,7 +77,7 @@ export function ContactForm({
           }}
           onBlur={handleOnBlur}
         >
-          <MenuItem value={'Mr'}>Mr</MenuItem>
+          <MenuItem value={'M'}>Mr</MenuItem>
           <MenuItem value={'Mme'}>Mme</MenuItem>
         </Select>
       </FormControl>
@@ -85,7 +85,7 @@ export function ContactForm({
       <TextField
         variant="outlined"
         id="client-name-first"
-        label="First Name"
+        label="Prénom"
         value={updatedFirstName}
         onChange={e => setFirstName(e.target.value)}
         onBlur={handleOnBlur}
@@ -93,7 +93,7 @@ export function ContactForm({
       <TextField
         variant="outlined"
         id="client-name-last"
-        label="Last Name"
+        label="Nom"
         value={updatedLastName}
         onChange={e => setLastName(e.target.value)}
         onBlur={handleOnBlur}
@@ -101,7 +101,7 @@ export function ContactForm({
       <TextField
         id="client-phone"
         variant="outlined"
-        label="Phone"
+        label="Téléphone"
         value={updatedPhone}
         onChange={e => setPhone(e.target.value)}
         onBlur={handleOnBlur}
@@ -109,7 +109,7 @@ export function ContactForm({
       <TextField
         id="client-email-perso"
         variant="outlined"
-        label="Personal Email"
+        label="Email personnel"
         value={updatedPersoEmail}
         onChange={e => setPersoEmail(e.target.value)}
         onBlur={handleOnBlur}
@@ -117,7 +117,7 @@ export function ContactForm({
       <TextField
         id="client-company"
         variant="outlined"
-        label="Company"
+        label="Entreprise"
         value={updatedCompany}
         onChange={e => setCompany(e.target.value)}
         onBlur={handleOnBlur}
@@ -125,7 +125,7 @@ export function ContactForm({
       <TextField
         id="client-email-pro"
         variant="outlined"
-        label="Professional Email"
+        label="Email pro"
         value={updatedProEmail}
         onChange={e => setProEmail(e.target.value)}
         onBlur={handleOnBlur}

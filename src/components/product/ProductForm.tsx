@@ -43,10 +43,10 @@ export function ProductForm({ product }: { product: Product }) {
         startIcon={<DeleteIcon />}
         onClick={() => dispatch(deleteProduct(product.id))}
       >
-        Delete
+        Supprimer
       </Button>
       <TextField id="product-code" label="Code" value={code} onChange={e => setCode(e.target.value)} onBlur={handleUpdateProduct} />
-      <TextField id="product-name" label="Name" value={name} onChange={e => setName(e.target.value)} onBlur={handleUpdateProduct} />
+      <TextField id="product-name" label="Nom" value={name} onChange={e => setName(e.target.value)} onBlur={handleUpdateProduct} />
     </div>
   )
 }

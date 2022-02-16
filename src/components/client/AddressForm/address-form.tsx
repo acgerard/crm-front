@@ -42,15 +42,15 @@ export function AddressForm({
     <div className="address-div">
       <Typography>{label}</Typography>
       <TextField
-        label="Address"
+        label="Adresse"
         className="address-desc"
         value={updatedDescription}
         onChange={e => setDesc(e.target.value)}
         onBlur={handleOnBlur}
       />
-      <TextField label="Zip Code" value={updatedZipCode} onChange={e => setZipCode(e.target.value)} onBlur={handleOnBlur} />
-      <TextField label="Town" value={updatedTown} onChange={e => setTown(e.target.value)} onBlur={handleOnBlur} />
-      <TextField label="Country" value={updatedCountry} onChange={e => setCountry(e.target.value)} onBlur={handleOnBlur} />
+      <TextField label="Code postal" value={updatedZipCode} onChange={e => setZipCode(e.target.value)} onBlur={handleOnBlur} />
+      <TextField label="Ville" value={updatedTown} onChange={e => setTown(e.target.value)} onBlur={handleOnBlur} />
+      <TextField label="Pays" value={updatedCountry} onChange={e => setCountry(e.target.value)} onBlur={handleOnBlur} />
     </div>
   )
 }

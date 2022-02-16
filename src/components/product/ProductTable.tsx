@@ -12,7 +12,7 @@ import { Product } from '../../actions/types'
 
 const headColumns = [
   { dataKey: 'code', label: 'Code' },
-  { dataKey: 'name', label: 'Name' },
+  { dataKey: 'name', label: 'Nom' },
 ]
 
 export function ProductTable() {

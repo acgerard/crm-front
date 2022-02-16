@@ -13,9 +13,9 @@ import { useParams } from 'react-router'
 import { useOrderBy } from '../../hooks/useOrderBy'
 
 const headColumns = [
-  { dataKey: 'product', label: 'Product' },
+  { dataKey: 'product', label: 'Produit' },
   { dataKey: 'promo', label: 'Promo' },
-  { dataKey: 'nbOffers', label: 'Number offers' },
+  { dataKey: 'nbOffers', label: "Nombre d'offres" },
 ]
 
 type SpancoElt = {

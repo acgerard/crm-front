@@ -20,7 +20,7 @@ export function ConfirmDialog(
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>{props.children}</DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose}>Cancel</Button>
+        <Button onClick={props.onClose}>Annuler</Button>
         <Button
           color="primary"
           onClick={() => {
