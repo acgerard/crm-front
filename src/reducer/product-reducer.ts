@@ -39,6 +39,10 @@ const productsSlice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       productsAdapter.removeOne(state, action)
     })
+    builder.addCase(deleteProduct.rejected, (state, action) => {
+      state.status = STATUS.ERROR
+      state.error = action.error
+    })
   },
 })
 

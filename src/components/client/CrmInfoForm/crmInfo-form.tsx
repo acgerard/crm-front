@@ -1,10 +1,22 @@
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import React, { useEffect, useState } from 'react'
-import './crmInfo-form.css'
 import { DTCFData } from '../../../actions/types'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    width: '100%',
+    columnGap: theme.spacing(2),
+    rowGap: theme.spacing(2),
+  },
+  comment: {
+    gridColumn: 'span 2',
+  },
+}))
 
 // TODO add DTCF type
 export function CrmInfoForm({
@@ -15,6 +27,7 @@ export function CrmInfoForm({
 }: DTCFData & {
   update: ({ contact, newsletter, comment }: DTCFData) => void
 }) {
+  const classes = useStyles()
   const [updatedContact, setContact] = useState(contact || '')
   const [updatedComment, setComment] = useState(comment || '')
   const [updatedNewsletter, setNewsletter] = useState(newsletter || false)
@@ -39,7 +52,7 @@ export function CrmInfoForm({
   }
 
   return (
-    <div className="crmInfo-div">
+    <div className={classes.container}>
       <TextField
         id="client-contact"
         label="Contact DTCF"
@@ -53,13 +66,15 @@ export function CrmInfoForm({
         }
         label="Newsletter"
       />
-      <TextareaAutosize
-        aria-label="minimum height"
-        rowsMin={5}
-        placeholder="Commentaire"
-        className="crmInfo-comment"
+      <TextField
+        className={classes.comment}
+        label="Commentaire"
+        multiline
+        minRows={4}
+        maxRows={8}
         value={updatedComment}
         onChange={e => setComment(e.target.value)}
+        variant="outlined"
         onBlur={handleOnBlur}
       />
     </div>

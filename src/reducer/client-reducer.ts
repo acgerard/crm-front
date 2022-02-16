@@ -60,6 +60,10 @@ const clientsSlice = createSlice({
       state.selectedClientId = null
       clientsAdapter.removeOne(state, action)
     })
+    builder.addCase(deleteClient.rejected, (state, action) => {
+      state.status = STATUS.ERROR
+      state.error = action.error
+    })
   },
 })
 

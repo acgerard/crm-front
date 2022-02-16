@@ -5,20 +5,21 @@ import { getSpancoById } from '../../selectors/spanco-selectors'
 import IconButton from '@material-ui/core/IconButton'
 import { deleteSpanco, updateSpanco } from '../../actions/spanco-actions'
 import TextField from '@material-ui/core/TextField'
-import { Add, CloseOutlined, DeleteOutline } from '@material-ui/icons'
+import { Add, DeleteOutline } from '@material-ui/icons'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { getProductById } from '../../selectors/product-selectors'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { ConfirmDialog } from '../common/dialog/ConfirmDialog'
 import { useNavigate } from 'react-router-dom'
+import { DefaultSidebar } from '../common/layout/DefaultSidebar'
 
 const useStyles = makeStyles(theme => ({
   container: {
     width: '100%',
     display: 'grid',
     rowGap: theme.spacing(4),
-    gridTemplateRows: 'auto auto auto 1fr',
+    gridTemplateRows: 'auto auto 1fr',
   },
   items: {
     display: 'grid',
@@ -30,21 +31,8 @@ const useStyles = makeStyles(theme => ({
     gridAutoFlow: 'columns',
     gridTemplateColumns: '1fr auto',
   },
-  header: {
-    display: 'grid',
-    rowGap: theme.spacing(1),
-  },
-  deleteButton: {
-    justifySelf: 'end',
-  },
   addButton: {
     justifySelf: 'start',
-  },
-  title: {
-    display: 'grid',
-    alignItems: 'center',
-    gridAutoFlow: 'column',
-    gridTemplateColumns: '1fr auto',
   },
 }))
 
@@ -111,50 +99,42 @@ export function SpancoForm(props: { spancoId: number }) {
   }
 
   return (
-    <Box className={classes.container}>
-      <div className={classes.header}>
-        <div className={classes.title}>
-          <Typography variant={'h4'}>{`${product?.data.code} - ${spanco?.data.promo}`}</Typography>
-          <IconButton onClick={backToSpancos}>
-            <CloseOutlined />
-          </IconButton>
-        </div>
-        <Button
-          className={classes.deleteButton}
-          color="secondary"
-          variant={'contained'}
-          startIcon={<DeleteIcon />}
-          onClick={() => setShowModal(true)}
-        >
+    <DefaultSidebar
+      name={`${product?.data.code} - ${spanco?.data.promo}`}
+      backAction={backToSpancos}
+      toolbarActions={
+        <Button color="secondary" variant={'contained'} startIcon={<DeleteIcon />} onClick={() => setShowModal(true)}>
           Supprimer
         </Button>
-      </div>
+      }
+    >
+      <Box className={classes.container}>
+        <TextField label="Promo" value={promo} required={true} onChange={e => setPromo(e.target.value)} onBlur={update} />
 
-      <TextField label="Promo" value={promo} required={true} onChange={e => setPromo(e.target.value)} onBlur={update} />
-
-      <Box className={classes.items}>
-        <Typography variant={'h5'}>Etapes du pipe</Typography>
-        {steps.map((step, index) => (
-          <div key={index} className={classes.item}>
-            <TextField value={step} onChange={e => updateStep(index, e.target.value)} onBlur={() => updateSteps(steps)} />
-            <IconButton color="secondary" onClick={() => deleteStep(index)}>
-              <DeleteOutline />
-            </IconButton>
-          </div>
-        ))}
-        <Button className={classes.addButton} color="primary" variant={'outlined'} onClick={addStep} startIcon={<Add />}>
-          Etape
-        </Button>
+        <Box className={classes.items}>
+          <Typography variant={'h5'}>Etapes du pipe</Typography>
+          {steps.map((step, index) => (
+            <div key={index} className={classes.item}>
+              <TextField value={step} onChange={e => updateStep(index, e.target.value)} onBlur={() => updateSteps(steps)} />
+              <IconButton color="secondary" onClick={() => deleteStep(index)}>
+                <DeleteOutline />
+              </IconButton>
+            </div>
+          ))}
+          <Button className={classes.addButton} color="primary" variant={'outlined'} onClick={addStep} startIcon={<Add />}>
+            Etape
+          </Button>
+        </Box>
+        <ConfirmDialog
+          open={showModal}
+          title={'Supprimer spanco'}
+          confirmLabel={'Supprimer'}
+          onConfirm={del}
+          onClose={() => setShowModal(false)}
+        >
+          <Typography>Cette action est définitive et supprimera le spanco et toutes les offres associées.</Typography>
+        </ConfirmDialog>
       </Box>
-      <ConfirmDialog
-        open={showModal}
-        title={'Supprimer spanco'}
-        confirmLabel={'Supprimer'}
-        onConfirm={del}
-        onClose={() => setShowModal(false)}
-      >
-        <Typography>Cette action est définitive et supprimera le spanco et toutes les offres associées.</Typography>
-      </ConfirmDialog>
-    </Box>
+    </DefaultSidebar>
   )
 }

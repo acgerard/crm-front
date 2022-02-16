@@ -4,7 +4,6 @@ import { deleteClient, updateClient } from '../../actions/client-actions'
 import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -14,23 +13,13 @@ import { ContactForm } from './ContactForm/contact-form'
 import { CrmInfoForm } from './CrmInfoForm/crmInfo-form'
 import { Address, Client, ClientData, ContactData, DTCFData } from '../../actions/types'
 import { makeStyles } from '@material-ui/core/styles'
-import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
+import { DefaultSidebar } from '../common/layout/DefaultSidebar'
+import { useNavigate } from 'react-router-dom'
+import { ConfirmDialog } from '../common/dialog/ConfirmDialog'
+import { Switch } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  actions: {
-    display: 'grid',
-    gridAutoFlow: 'column',
-    gridTemplateColumns: '1fr auto',
-    marginBottom: theme.spacing(2),
-  },
-  button: {
-    color: theme.palette.secondary.main,
-    // backgroundColor: theme.palette.error.dark,
-  },
-  title: {
-    marginBottom: theme.spacing(4),
-  },
-
   details: {
     marginBottom: '1rem',
   },
@@ -43,8 +32,10 @@ const useStyles = makeStyles(theme => ({
 
 export function ClientForm({ client }: { client: Client }) {
   const classes = useStyles()
-  const [updatedActive, setActive] = useState(client.data.active || false)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [updatedActive, setActive] = useState(client.data.active || false)
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(
     function () {
@@ -64,8 +55,7 @@ export function ClientForm({ client }: { client: Client }) {
     }
   }
 
-  const onDelete = () => {
-    // TODO add confirmation dialog
+  const handleDelete = () => {
     if (client) {
       dispatch(deleteClient(client.id))
     }
@@ -99,82 +89,97 @@ export function ClientForm({ client }: { client: Client }) {
     }
   }
 
-  return (
-    <div>
-      <Typography variant="h4" className={classes.title}>{`${client.data.firstName} ${client.data.lastName}`}</Typography>
+  const backToClients = () => {
+    navigate(`/clients`)
+  }
 
-      <div className={classes.actions}>
+  return (
+    <DefaultSidebar
+      name={`${client.data.firstName} ${client.data.lastName}`}
+      backAction={backToClients}
+      toolbarActions={
+        <Button color="secondary" variant={'contained'} startIcon={<DeleteIcon />} onClick={() => setShowModal(true)}>
+          Supprimer
+        </Button>
+      }
+    >
+      <div>
         <FormControlLabel
           control={
-            <Checkbox
-              name="active"
+            <Switch
+              color="primary"
               checked={updatedActive}
               onChange={e => setActive(e.target.checked)}
               onBlur={() => update(getContactInfo(), getCrmInfo(), client.data.addresses?.pro, client.data.addresses?.perso)}
             />
           }
-          label="Actif"
+          label={updatedActive ? 'Actif' : 'Non actif'}
         />
-        <IconButton className={classes.button} onClick={onDelete}>
-          <DeleteIcon />
-        </IconButton>
-        {/*<Button className={classes.button} variant={'contained'} startIcon={<DeleteIcon />} onClick={onDelete}>*/}
-        {/* Delete */}
-        {/*</Button>*/}
-      </div>
 
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">Contact</Typography>
-        </AccordionSummary>
-        <AccordionDetails className={classes.details}>
-          <ContactForm
-            title={client.data.title}
-            firstName={client.data.firstName}
-            lastName={client.data.lastName}
-            phone={client.data.phone}
-            emails={client.data.emails}
-            company={client.data.company}
-            update={(contact: ContactData) => update(contact, getCrmInfo(), client.data.addresses?.pro, client.data.addresses?.perso)}
-          />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">Adresses</Typography>
-        </AccordionSummary>
-        <AccordionDetails className={classes.addresses}>
-          <AddressForm
-            label="Adresse professionnelle"
-            description={client.data.addresses?.pro?.description}
-            zipCode={client.data.addresses?.pro?.zipCode}
-            town={client.data.addresses?.pro?.town}
-            country={client.data.addresses?.pro?.country}
-            update={address => update(getContactInfo(), getCrmInfo(), address, client.data.addresses?.perso)}
-          />
-          <AddressForm
-            label="Adresse personnelle"
-            description={client.data.addresses?.perso?.description}
-            zipCode={client.data.addresses?.perso?.zipCode}
-            town={client.data.addresses?.perso?.town}
-            country={client.data.addresses?.perso?.country}
-            update={address => update(getContactInfo(), getCrmInfo(), client.data.addresses?.pro, address)}
-          />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">Informations DTCF</Typography>
-        </AccordionSummary>
-        <AccordionDetails className={classes.details}>
-          <CrmInfoForm
-            contact={client.data.contact}
-            newsletter={client.data.newsletter}
-            comment={client.data.comment}
-            update={(crmInfo: DTCFData) => update(getContactInfo(), crmInfo, client.data.addresses?.pro, client.data.addresses?.perso)}
-          />
-        </AccordionDetails>
-      </Accordion>
-    </div>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Contact</Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.details}>
+            <ContactForm
+              title={client.data.title}
+              firstName={client.data.firstName}
+              lastName={client.data.lastName}
+              phone={client.data.phone}
+              emails={client.data.emails}
+              company={client.data.company}
+              update={(contact: ContactData) => update(contact, getCrmInfo(), client.data.addresses?.pro, client.data.addresses?.perso)}
+            />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Adresses</Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.addresses}>
+            <AddressForm
+              label="Adresse professionnelle"
+              description={client.data.addresses?.pro?.description}
+              zipCode={client.data.addresses?.pro?.zipCode}
+              town={client.data.addresses?.pro?.town}
+              country={client.data.addresses?.pro?.country}
+              update={address => update(getContactInfo(), getCrmInfo(), address, client.data.addresses?.perso)}
+            />
+            <AddressForm
+              label="Adresse personnelle"
+              description={client.data.addresses?.perso?.description}
+              zipCode={client.data.addresses?.perso?.zipCode}
+              town={client.data.addresses?.perso?.town}
+              country={client.data.addresses?.perso?.country}
+              update={address => update(getContactInfo(), getCrmInfo(), client.data.addresses?.pro, address)}
+            />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Informations DTCF</Typography>
+          </AccordionSummary>
+          <AccordionDetails className={classes.details}>
+            <CrmInfoForm
+              contact={client.data.contact}
+              newsletter={client.data.newsletter}
+              comment={client.data.comment}
+              update={(crmInfo: DTCFData) => update(getContactInfo(), crmInfo, client.data.addresses?.pro, client.data.addresses?.perso)}
+            />
+          </AccordionDetails>
+        </Accordion>
+      </div>
+      <ConfirmDialog
+        open={showModal}
+        title={'Supprimer client'}
+        confirmLabel={'Supprimer'}
+        onConfirm={handleDelete}
+        onClose={() => setShowModal(false)}
+      >
+        <Typography>
+          Cette action est définitive et supprimera le client. Cela échouera si le client est référencé dans un spanco (offre).
+        </Typography>
+      </ConfirmDialog>
+    </DefaultSidebar>
   )
 }
