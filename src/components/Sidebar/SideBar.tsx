@@ -3,7 +3,7 @@ import { useMatch } from 'react-router'
 import { useAppSelector } from '../../store'
 import { getProductById } from '../../selectors/product-selectors'
 import { ProductForm } from '../product/ProductForm'
-import { SpancoConfiguration } from '../spanco/SpancoConfiguration'
+import { SpancoForm } from '../spanco/SpancoForm'
 import { OfferForm } from '../spanco/OfferForm'
 import { getClientById } from '../../selectors/client-selectors'
 import { ClientForm } from '../client/ClientForm'
@@ -37,7 +37,7 @@ export function SpancoSideBar() {
   const matchSpanco = useMatch('/spancos/:spancoId')
   const spancoId = (matchSpanco?.params.spancoId && parseInt(matchSpanco?.params.spancoId)) || 0
 
-  return spancoId ? <SpancoConfiguration spancoId={spancoId} /> : null
+  return spancoId ? <SpancoForm spancoId={spancoId} /> : null
 }
 export function OfferSideBar() {
   const matchOffer = useMatch('/spancos/:spancoId/:offerId')
