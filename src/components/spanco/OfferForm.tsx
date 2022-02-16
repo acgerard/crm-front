@@ -13,6 +13,7 @@ import { ConfirmDialog } from '../common/dialog/ConfirmDialog'
 import { CloseOutlined } from '@material-ui/icons'
 import { useNavigate } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
+import { ProgressDropDown } from './ProgressDropDown'
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -47,7 +48,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
   const [action, setAction] = useState(offer?.data.action)
   const [followedBy, setFollowedBy] = useState(offer?.data.followedBy)
   const [probability, setProbability] = useState(offer?.data.probability || '')
-  const [progress, setProgress] = useState(offer?.data.progress)
+  const [progress, setProgress] = useState(offer?.data.progress || 0)
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
     setClientId(offer?.data.clientId || null)
     setPrescriptorId(offer?.data.prescriptorId || null)
     setPrice(offer?.data.price || '')
-    setProgress(offer?.data.progress)
+    setProgress(offer?.data.progress || 0)
     setProbability(offer?.data.probability || '')
     setFollowedBy(offer?.data.followedBy || '')
   }, [offer])
@@ -141,13 +142,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
         onChange={e => handleNumber(e.target.value, setProbability)}
         onBlur={handleUpdateOffer}
       />
-      <TextField
-        label="Progression"
-        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-        value={progress}
-        onChange={e => setProgress(parseInt(e.target.value))}
-        onBlur={handleUpdateOffer}
-      />
+      <ProgressDropDown spancoId={props.spancoId} value={progress} setProgress={setProgress} onBlur={handleUpdateOffer} />
 
       <TextareaAutosize
         aria-label="minimum height"

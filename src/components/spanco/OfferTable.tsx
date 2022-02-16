@@ -6,7 +6,7 @@ import { stableSort } from '../../helpers/tableHelper'
 import { useAppSelector } from '../../store'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { getOffers } from '../../selectors/spanco-selectors'
+import { getOffers, getSpancoById } from '../../selectors/spanco-selectors'
 import { SortableTableHeader } from '../common/table/SortableTableHeader'
 import { useParams } from 'react-router'
 import { getClientName, getClientsById } from '../../selectors/client-selectors'
@@ -26,7 +26,7 @@ type OfferElt = {
   client: string
   action?: string
   followedBy?: string
-  progress: string
+  progress: number
   probability?: number | null
 }
 
@@ -44,7 +44,7 @@ export function OfferTable() {
         action: offer.data.action,
         client: getClientName(clients[offer.data.clientId || offer.data.prescriptorId || 0]) || 'Not found',
         followedBy: offer.data.followedBy,
-        progress: offer.data.progress.toString(),
+        progress: offer.data.progress,
         probability: offer.data.probability,
       }
     })
@@ -66,6 +66,7 @@ export function OfferTable() {
 
 export function OfferLine(props: { selected?: boolean } & OfferElt) {
   const navigate = useNavigate()
+  const spanco = useAppSelector(state => getSpancoById(state, props.spancoId))
 
   const handleClick = () => {
     navigate(`/spancos/${props.spancoId}/${props.id}`)
@@ -78,7 +79,7 @@ export function OfferLine(props: { selected?: boolean } & OfferElt) {
       </TableCell>
       <TableCell>{props.action}</TableCell>
       <TableCell>{props.followedBy}</TableCell>
-      <TableCell>{props.progress}</TableCell>
+      <TableCell>{spanco?.data.configuration?.steps[props.progress] || props.progress}</TableCell>
       <TableCell>{props.probability}</TableCell>
     </TableRow>
   )
