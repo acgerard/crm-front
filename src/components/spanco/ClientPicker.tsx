@@ -1,11 +1,9 @@
 import { useSelector } from 'react-redux'
 import { getClients, getStatus } from '../../selectors/client-selectors'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { STATUS } from '../../reducer/common'
+import { Autocomplete } from '@material-ui/lab'
+import { TextField } from '@material-ui/core'
 
 export function ClientPicker(props: {
   clientId: number | null
@@ -14,50 +12,31 @@ export function ClientPicker(props: {
   setClientId: (clientId: number | null) => void
   onBlur?: () => void
 }) {
+  const [inputValue, setInputValue] = React.useState('')
   const clientStatus = useSelector(getStatus)
   const clients = useSelector(getClients)
 
+  const options = useMemo(() => {
+    return clients.map(client => {
+      return { label: `${client.data.firstName} ${client.data.lastName}`, id: client.id }
+    })
+  }, [clients])
+  const clientSelected = useMemo(() => options.find(client => client.id === props.clientId), [options, props.clientId])
+
   return clientStatus === STATUS.OK ? (
-    <FormControl>
-      <InputLabel>{props.label || 'Client'}</InputLabel>
-      <Select
-        value={props.clientId?.toString() || ''}
-        onChange={e => {
-          if (typeof e.target.value === 'string') {
-            const value = parseInt(e.target.value)
-            if (isNaN(value)) {
-              props.setClientId(null)
-            } else {
-              props.setClientId(value)
-            }
-          } else {
-            props.setClientId(null)
-          }
-        }}
-        onBlur={props.onBlur}
-        MenuProps={{
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'left',
-          },
-          transformOrigin: {
-            vertical: 'top',
-            horizontal: 'left',
-          },
-          getContentAnchorEl: null,
-        }}
-      >
-        {props.canUnset && (
-          <MenuItem key={'unsetValue'} value={''}>
-            None
-          </MenuItem>
-        )}
-        {clients.map(client => (
-          <MenuItem key={client.id} value={client.id.toString()}>
-            {`${client.data.firstName} ${client.data.lastName}`}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+    <Autocomplete
+      value={clientSelected}
+      onChange={(event: unknown, newValue: { id: number; label: string } | null) => {
+        props.setClientId(newValue?.id || null)
+      }}
+      inputValue={inputValue}
+      onInputChange={(event, newInputValue) => {
+        setInputValue(newInputValue)
+      }}
+      getOptionLabel={option => option.label}
+      onBlur={props.onBlur}
+      options={options}
+      renderInput={params => <TextField {...params} label={props.label || 'Client'} />}
+    />
   ) : null
 }
