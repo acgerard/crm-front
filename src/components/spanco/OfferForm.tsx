@@ -62,12 +62,12 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
         ...offer,
         data: { ...offer.data, comment, action, followedBy, clientId, prescriptorId, progress: progress || 0, pro: pro },
       }
-      if (probability && probability !== '') {
+      if (typeof probability === 'number') {
         newOffer.data.probability = probability as number
       } else {
         delete newOffer.data.probability
       }
-      if (price && price !== '') {
+      if (typeof price === 'number') {
         newOffer.data.price = price as number
       } else {
         delete newOffer.data.price
@@ -118,7 +118,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
           <TextField label="Suivi par" value={followedBy} onChange={e => setFollowedBy(e.target.value)} onBlur={handleUpdateOffer} />
           <FormControlLabel
             control={<Switch color="primary" checked={!!pro} onChange={e => setPro(e.target.checked)} onBlur={handleUpdateOffer} />}
-            label={pro ? 'Pro' : 'Perso'}
+            label={pro ? 'Pro' : 'Particulier'}
           />
         </div>
         <div className={classes.twoCol}>

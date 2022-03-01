@@ -27,7 +27,7 @@ type OfferElt = {
   action?: string
   followedBy?: string
   progress: number
-  probability?: number | null
+  probability: number
 }
 
 export function OfferTable() {
@@ -45,7 +45,7 @@ export function OfferTable() {
         client: getClientName(clients[offer.data.clientId || offer.data.prescriptorId || 0]) || 'Not found',
         followedBy: offer.data.followedBy,
         progress: offer.data.progress,
-        probability: offer.data.probability,
+        probability: offer.data.probability || 0,
       }
     })
   }, [offers, clients])
@@ -80,7 +80,7 @@ export function OfferLine(props: { selected?: boolean } & OfferElt) {
       <TableCell>{props.action}</TableCell>
       <TableCell>{props.followedBy}</TableCell>
       <TableCell>{spanco?.data.configuration?.steps[props.progress] || props.progress}</TableCell>
-      <TableCell>{props.probability}</TableCell>
+      <TableCell>{`${props.probability}%`}</TableCell>
     </TableRow>
   )
 }
