@@ -63,10 +63,10 @@ export function ContactForm({
   return (
     <div className="contact-div">
       <FormControl>
-        <InputLabel id="client-title-label">Title</InputLabel>
+        <InputLabel id="client-title-label">Civilité</InputLabel>
         <Select
           labelId="client-title-label"
-          label="Titre"
+          label="Civilité"
           value={updatedTitle}
           onChange={e => {
             if (typeof e.target.value === 'string') {

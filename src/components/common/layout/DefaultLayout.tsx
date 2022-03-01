@@ -97,7 +97,7 @@ export function DefaultLayout(): ReactElement {
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <Link component={RouterLink} to={'/products'} underline={'none'} color={'inherit'}>
-                Products
+                Produits
               </Link>
             </MenuItem>
           </Menu>
