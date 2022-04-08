@@ -24,7 +24,7 @@ function App() {
       navigate('/login')
     })
     setReady(true)
-  }, [])
+  }, [dispatch, navigate])
 
   useEffect(() => {
     let id = 0
