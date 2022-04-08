@@ -164,6 +164,7 @@ export function ClientForm({ client }: { client: Client }) {
               contact={client.data.contact}
               newsletter={client.data.newsletter}
               comment={client.data.comment}
+              dtcfType={client.data.dtcfType}
               update={(crmInfo: DTCFData) => update(getContactInfo(), crmInfo, client.data.addresses?.pro, client.data.addresses?.perso)}
             />
           </AccordionDetails>

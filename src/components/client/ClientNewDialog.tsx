@@ -48,6 +48,7 @@ export function ClientNewDialog({ open, onClose }: { open?: boolean; onClose?: (
         contact={crmInfo.contact}
         newsletter={crmInfo.newsletter}
         comment={crmInfo.comment}
+        dtcfType={crmInfo.dtcfType}
         update={crmInfo => setCrmInfo(crmInfo)}
       />
       <AddressForm
