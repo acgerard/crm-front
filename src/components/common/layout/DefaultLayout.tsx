@@ -3,12 +3,14 @@ import { AppBar, Link, Menu, MenuItem } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
 import { Menu as MenuIcon } from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton'
-import Button from '@material-ui/core/Button'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { makeStyles } from '@material-ui/core/styles'
 import { ToolbarBreadCrumb } from '../Breadcrumbs/ToolbarBreadCrumb'
 import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom'
-import { logout } from '../../../redux/authentication'
+import { getUsername, logout } from '../../../redux/authentication'
 import { SideBar } from '../../Sidebar/SideBar'
+import { useSelector } from 'react-redux'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
   layout: {
@@ -41,7 +43,8 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     display: 'grid',
     gridAutoFlow: 'column',
-    gridTemplateColumns: 'auto 1fr auto',
+    gridTemplateColumns: 'auto 1fr auto auto',
+    columnGap: '8px',
   },
   menu: {
     display: 'grid',
@@ -54,6 +57,7 @@ export function DefaultLayout(): ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
   const navigate = useNavigate()
+  const username = useSelector(getUsername)
 
   const handleClick = (event: { currentTarget: HTMLElement }) => {
     setAnchorEl(event.currentTarget)
@@ -102,9 +106,10 @@ export function DefaultLayout(): ReactElement {
             </MenuItem>
           </Menu>
           <ToolbarBreadCrumb />
-          <Button color="inherit" onClick={onLogout}>
-            Logout
-          </Button>
+          <Typography>{username}</Typography>
+          <IconButton size="medium" color="inherit" aria-label="logout" onClick={onLogout}>
+            <ExitToAppIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Toolbar />
