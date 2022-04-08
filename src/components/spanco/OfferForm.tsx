@@ -143,7 +143,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
           maxRows={8}
           label="Action"
           multiline
-          value={action}
+          value={action || ''}
           onChange={e => setAction(e.target.value)}
           onBlur={handleUpdateOffer}
           variant="outlined"
@@ -153,7 +153,7 @@ export function OfferForm(props: { spancoId: number; offerId: number }) {
           multiline
           minRows={4}
           maxRows={8}
-          value={comment}
+          value={comment || ''}
           onChange={e => setComment(e.target.value)}
           variant="outlined"
           onBlur={handleUpdateOffer}
