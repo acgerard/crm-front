@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import clientReducer from './reducer/client-reducer'
 import productReducer from './reducer/product-reducer'
 import spancoReducer from './reducer/spanco-reducer'
+import authReducer from './redux/authentication'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 const store = configureStore({
   reducer: {
+    authentication: authReducer,
     client: clientReducer,
     product: productReducer,
     spanco: spancoReducer,

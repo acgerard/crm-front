@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { ToolbarBreadCrumb } from '../Breadcrumbs/ToolbarBreadCrumb'
 import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom'
-import { logout } from '../../../actions/signIn-actions'
+import { logout } from '../../../redux/authentication'
 import { SideBar } from '../../Sidebar/SideBar'
 
 const useStyles = makeStyles(theme => ({
