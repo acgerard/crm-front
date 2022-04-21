@@ -47,10 +47,11 @@ export function SpancoNewDialog(props: { open?: boolean; onClose?: () => void })
         <FormControl>
           <InputLabel>Produit</InputLabel>
           <Select
-            value={productId}
+            value={productId || ''}
             onChange={e => {
-              if (typeof e.target.value === 'string') {
-                setProductId(parseInt(e.target.value))
+              const id = Number(e.target.value)
+              if (!isNaN(id)) {
+                setProductId(id)
               } else {
                 setProductId(null)
               }
