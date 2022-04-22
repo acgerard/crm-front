@@ -8,19 +8,23 @@ import { CrmInfoForm } from './CrmInfoForm/crmInfo-form'
 import { Address, ContactData, DTCFData } from '../../actions/types'
 import { ConfirmDialog } from '../common/dialog/ConfirmDialog'
 
+const initialContactInfo = {
+  title: '',
+  firstName: '',
+  lastName: '',
+  company: '',
+  phone: '',
+  emails: {},
+}
+const initialCrmInfo = { contact: '', comment: '', newsletter: false, dtcfType: undefined }
+const initialAddress = { description: '', zipCode: '', town: '', country: '' }
+
 export function ClientNewDialog({ open, onClose }: { open?: boolean; onClose?: () => void }) {
   const dispatch = useDispatch()
-  const [contactInfo, setContactInfo] = useState<ContactData>({
-    title: '',
-    firstName: '',
-    lastName: '',
-    company: '',
-    phone: '',
-    emails: {},
-  })
-  const [crmInfo, setCrmInfo] = useState<DTCFData>({ contact: '', comment: '', newsletter: false, dtcfType: undefined })
-  const [proAddress, setProAddress] = useState<Address>({ description: '', zipCode: '', town: '', country: '' })
-  const [persoAddress, setPersoAddress] = useState<Address>({ description: '', zipCode: '', town: '', country: '' })
+  const [contactInfo, setContactInfo] = useState<ContactData>(initialContactInfo)
+  const [crmInfo, setCrmInfo] = useState<DTCFData>(initialCrmInfo)
+  const [proAddress, setProAddress] = useState<Address>(initialAddress)
+  const [persoAddress, setPersoAddress] = useState<Address>(initialAddress)
 
   const handleCreateClient = () => {
     dispatch(
@@ -31,6 +35,10 @@ export function ClientNewDialog({ open, onClose }: { open?: boolean; onClose?: (
         addresses: { pro: proAddress, perso: persoAddress },
       }),
     )
+    setContactInfo(initialContactInfo)
+    setCrmInfo(initialCrmInfo)
+    setProAddress(initialAddress)
+    setPersoAddress(initialAddress)
   }
 
   return (
