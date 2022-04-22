@@ -19,7 +19,7 @@ const headColumns = [
   { dataKey: 'active', label: 'Actif', width: 100, boolean: true },
   { dataKey: 'company', label: 'Entreprise', width: 200 },
   { dataKey: 'contact', label: 'Contact DTCF', width: 200 },
-  { dataKey: 'country', label: 'Pays', width: 150 },
+  { dataKey: 'dtcf', label: 'DT/CF', width: 100 },
   { dataKey: 'comment', label: 'Commentaire', width: 300 },
 ]
 
@@ -33,7 +33,7 @@ const filterClients = (clients: Client[], filter?: string) => {
         regex.test(client.data.comment || '') ||
         regex.test(client.data.company || '') ||
         regex.test(client.data.contact || '') ||
-        regex.test(client.data.addresses?.pro?.country || client.data.addresses?.perso?.country || '')
+        regex.test(client.data.dtcfType || '')
       )
     })
   } else return clients
@@ -45,7 +45,7 @@ type ClientElt = {
   lastName: string
   active: boolean
   contact: string
-  country: string
+  dtcf: string
   comment: string
   company: string
 }
@@ -64,7 +64,7 @@ export function ClientTable() {
         firstName: client.data.firstName || '',
         lastName: client.data.lastName || '',
         contact: client.data.contact || '',
-        country: client.data.addresses.pro?.country || client.data.addresses.perso?.country || '',
+        dtcf: client.data.dtcfType || '',
         comment: client.data.comment || '',
         company: client.data.company || '',
       }
@@ -101,7 +101,7 @@ export function ClientLine(props: { selected?: boolean } & ClientElt) {
       <TableCell>{props.active ? <CheckIcon /> : <ClearIcon />}</TableCell>
       <TableCell>{props.company}</TableCell>
       <TableCell>{props.contact}</TableCell>
-      <TableCell>{props.country}</TableCell>
+      <TableCell>{props.dtcf}</TableCell>
       <TableCell>{props.comment}</TableCell>
     </TableRow>
   )
