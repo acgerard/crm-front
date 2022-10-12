@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridAutoFlow: 'column',
     gridTemplateColumns: '1fr auto',
+    alignItems: 'center',
   },
   actions: {
     justifySelf: 'end',
