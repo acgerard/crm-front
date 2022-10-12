@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { getClients, getStatus } from '../../selectors/client-selectors'
+import { getClients, getStatus } from '../../redux/client'
 import React, { useMemo } from 'react'
 import { STATUS } from '../../reducer/common'
 import { Autocomplete } from '@material-ui/lab'

@@ -5,7 +5,7 @@ import { getProductById } from '../../selectors/product-selectors'
 import { ProductForm } from '../product/ProductForm'
 import { SpancoForm } from '../spanco/SpancoForm'
 import { OfferForm } from '../spanco/OfferForm'
-import { getClientById } from '../../selectors/client-selectors'
+import { getClientById } from '../../redux/client'
 import { ClientForm } from '../client/ClientForm'
 
 export function SideBar() {

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { getClients, getFilterClient } from '../../selectors/client-selectors'
+import { filterClients, getClients, getFilterClient } from '../../redux/client'
 import React, { useMemo } from 'react'
 import TableCell from '@material-ui/core/TableCell'
 import { Table, TableBody, TableContainer, TableRow } from '@material-ui/core'
@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 import CheckIcon from '@material-ui/icons/Check'
 import ClearIcon from '@material-ui/icons/Clear'
 import { useParams } from 'react-router'
-import { Client } from '../../actions/types'
 
 const headColumns = [
   { dataKey: 'firstName', label: 'Prénom', width: 200 },
@@ -22,22 +21,6 @@ const headColumns = [
   { dataKey: 'dtcf', label: 'DT/CF', width: 100 },
   { dataKey: 'comment', label: 'Commentaire', width: 300 },
 ]
-
-const filterClients = (clients: Client[], filter?: string) => {
-  if (filter && filter !== '') {
-    const regex = new RegExp(filter, 'g')
-    return clients.filter((client: Client) => {
-      return (
-        regex.test(client.data.firstName || '') ||
-        regex.test(client.data.lastName || '') ||
-        regex.test(client.data.comment || '') ||
-        regex.test(client.data.company || '') ||
-        regex.test(client.data.contact || '') ||
-        regex.test(client.data.dtcfType || '')
-      )
-    })
-  } else return clients
-}
 
 type ClientElt = {
   id: number

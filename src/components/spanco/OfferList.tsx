@@ -6,7 +6,7 @@ import { fetchOffers, fetchSpancos } from '../../actions/spanco-actions'
 import { getOffersError, getOffersStatus } from '../../selectors/spanco-selectors'
 import { useParams } from 'react-router-dom'
 import { OfferNewDialog } from './OfferNewDialog'
-import { fetchClients } from '../../actions/client-actions'
+import { fetchClients } from '../../redux/client'
 import { OfferTable } from './OfferTable'
 
 function OfferList() {

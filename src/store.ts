@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import clientReducer from './reducer/client-reducer'
+import clientReducer from './redux/client'
 import productReducer from './reducer/product-reducer'
 import spancoReducer from './reducer/spanco-reducer'
 import authReducer from './redux/authentication'

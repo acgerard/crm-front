@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import { getOffers, getSpancoById } from '../../selectors/spanco-selectors'
 import { SortableTableHeader } from '../common/table/SortableTableHeader'
 import { useParams } from 'react-router'
-import { getClientName, getClientsById } from '../../selectors/client-selectors'
+import { getClientName, getClientsById } from '../../redux/client'
 import { useOrderBy } from '../../hooks/useOrderBy'
 
 const headColumns = [

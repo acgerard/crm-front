@@ -41,6 +41,9 @@ export type Address = {
   town?: string
   country?: string
 }
+export function addressToString(address?: Address): string | undefined {
+  return !!address ? `${address.description} ${address.zipCode} ${address.town} ${address.country}` : undefined
+}
 
 export type Product = {
   id: number

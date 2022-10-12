@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { createClient } from '../../actions/client-actions'
+import { createClient } from '../../redux/client'
 import { useDispatch } from 'react-redux'
 import { ContactForm } from './ContactForm/contact-form'
 import './ClientNewForm.css'

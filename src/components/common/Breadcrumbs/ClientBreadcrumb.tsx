@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../../store'
-import { getClientById } from '../../../selectors/client-selectors'
+import { getClientById } from '../../../redux/client'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
 

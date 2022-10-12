@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { deleteClient, updateClient } from '../../actions/client-actions'
+import { deleteClient, updateClient } from '../../redux/client'
 import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
