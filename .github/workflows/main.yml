@@ -30,6 +30,8 @@ jobs:
           cache: 'npm'
           
       # Build
+      - name: NPM Version
+        run: npm --version
       - name: Install
         run: npm ci
       - name: Build
