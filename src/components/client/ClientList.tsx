@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { DefaultList } from '../common/layout/DefaultList'
+import React, {useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
+import {DefaultList} from '../common/layout/DefaultList'
 import {
   createClients,
   CsvClient,
@@ -12,19 +12,20 @@ import {
   getFilterClient,
   getStatus,
 } from '../../redux/client'
-import { ClientNewDialog } from './ClientNewDialog'
+import {ClientNewDialog} from './ClientNewDialog'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
-import { ListItemIcon, makeStyles, Menu, MenuItem, Snackbar } from '@material-ui/core'
+import {ListItemIcon, makeStyles, Menu, MenuItem, Snackbar} from '@material-ui/core'
 import * as Papa from 'papaparse'
-import { ParseResult } from 'papaparse'
-import { ClientTable } from './ClientTable'
+import {ParseResult} from 'papaparse'
+import {ClientTable} from './ClientTable'
 import Typography from '@material-ui/core/Typography'
-import { ClientData, DTCFType } from '../../actions/types'
-import { useAppDispatch } from '../../store'
-import { GetApp } from '@material-ui/icons'
+import {ClientData} from '../../actions/types'
+import {useAppDispatch} from '../../store'
+import {GetApp} from '@material-ui/icons'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import PublishIcon from '@material-ui/icons/Publish'
+import {AnyAction} from "@reduxjs/toolkit";
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -73,7 +74,7 @@ function ClientList() {
         header: true,
         complete: async function (results: ParseResult<CsvClient>) {
           const clients: ClientData[] = []
-          results.data.map(line => {
+          results.data.forEach(line => {
             if (line.firstName || line.lastName) {
               clients.push({
                 firstName: line.firstName,
@@ -92,7 +93,7 @@ function ClientList() {
             }
           })
           const res = await dispatch(createClients(clients))
-          setImportData((res as any).payload)
+          setImportData((res as AnyAction).payload)
           dispatch(fetchClients())
         },
       })
